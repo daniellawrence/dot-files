@@ -1,0 +1,5 @@
+#!/bin/bash
+
+source libfunc
+install_package python-pip
+sudo pip install -r requirements.txt
