@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if [ "$(hostname -f)" != 'lintendo' ];then
+	echo "This script is only execute on host lintendo"
+	exit 1
+fi
+

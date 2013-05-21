@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if [ "$(hostname -f)" != 'xps13' ];then
+	echo "This script is only execute on host xps13"
+	exit 1
+fi
