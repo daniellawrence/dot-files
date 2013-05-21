@@ -4,7 +4,8 @@
 # Grab the repo from github
 #--------------------------------------------------------------------------------
 if [ ! -d ~/.dot-files ];then
-    git clone https://github.com/daniellawrence/dot-files.git master ~/.dot-files
+    git clone https://github.com/daniellawrence/dot-files.git
+    mv dot-files .dot-files
 fi
 
 #--------------------------------------------------------------------------------
@@ -13,3 +14,4 @@ fi
 cd ~/.dot-files
 chmod 755 setup-*
 ./setup
+
