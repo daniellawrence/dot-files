@@ -1,3 +1,5 @@
 [user]
-	email = dannyla@linux.com
+	email = Daniel Lawrence
 	name = Daniel Lawrence
+[push]
+	default = simple
