@@ -1,0 +1,34 @@
+#!/bin/bash
+
+function install_package {
+	 if [ ${#} -eq 0 ];then
+	    echo "SYNTAX ERROR:"
+	    return
+	 fi
+
+	 dpkg -l $* 2&>1 > /dev/null
+	 IS_INSTALLED=${?}
+	 if [[ $IS_INSTALLED -ne 0 ]];then
+    	    sudo apt-get install $*
+	 else
+    	    echo "$* is already installed on this system"
+	 fi
+}
+
+function install_ppa {
+	 if [ ${#} -eq 0 ];then
+	    echo "SYNTAX ERROR:"
+	    return
+	 fi
+	 
+	 PPA_SOURCES_FILE=$( echo $1 | cut -d: -f2 | cut -d/ -f1 )
+	 sudo ls /etc/apt/sources.list.d | grep $PPA_SOURCES_FILE 2>&1 > /dev/null
+	 IS_INSTALLED=${?}
+	 if [[ $IS_INSTALLED -ne 0 ]];then
+    	    sudo add-apt-repository $1
+    	    sudo apt-get update
+	 else
+    	    echo "ppa $1 already installed"
+	 fi
+	 
+}

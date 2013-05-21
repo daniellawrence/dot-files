@@ -1,0 +1,25 @@
+# If we do not have antigen installed, then grab it from the github repo
+if [[ ! -d ~/.zsh/antigen ]];then
+   mkdir ~/.zsh
+   (cd ~/.zsh/ ; git clone https://github.com/zsh-users/antigen.git )
+fi
+source ~/.zsh/antigen/antigen.zsh
+
+# Load the oh-my-zsh's library.
+antigen use oh-my-zsh
+
+# Bundles from the default repo (robbyrussell's oh-my-zsh).
+antigen bundle git
+antigen bundle heroku
+antigen bundle pip
+antigen bundle lein
+antigen bundle command-not-found
+
+# Syntax highlighting bundle.
+antigen bundle zsh-users/zsh-syntax-highlighting
+
+# Load the theme.
+antigen theme candy
+
+# Tell antigen that you're done.
+antigen apply
