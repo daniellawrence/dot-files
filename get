@@ -4,7 +4,7 @@
 # Grab the repo from github
 #--------------------------------------------------------------------------------
 if [ ! -d ~/.dot-files ];then
-    git clone https://github.com/daniellawrence/dot-files.git
+    git clone git@github.com:daniellawrence/dot-files.git
     mv dot-files .dot-files
 fi
 
