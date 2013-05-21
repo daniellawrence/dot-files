@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# install the package
+source libfunc
+install_package etckeeper
+
+# uncomment git
+if [ $( grep -c '^VCS="git"' /etc/etckeeper/etckeeper.conf ) -eq 0 ];then
+    sudo sed -i 's/#VCS="git"/VCS="git"/g' /etc/etckeeper/etckeeper.conf
+fi
+
+# comment out bzr
+if [ $( grep -c '^VCS="bzr"' /etc/etckeeper/etckeeper.conf ) -eq 1 ];then
+    sudo sed -i 's/VCS="bzr"/#VCS="bzr"/g' /etc/etckeeper/etckeeper.conf
+fi
