@@ -21,7 +21,7 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-export EDITOR='emacsclient -f'
-
-alias vi='emacsclient -f'
-alias vim='emacsclient -f'
+export EDITOR='emacsclient'
+export GIT_EDITOR='emacsclient'
+alias vi='emacsclient'
+alias vim='emacsclient'
