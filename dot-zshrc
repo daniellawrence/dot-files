@@ -23,3 +23,5 @@ antigen theme candy
 
 # Tell antigen that you're done.
 antigen apply
+
+alias ls='ls --color=tty -B'
