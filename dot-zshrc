@@ -12,8 +12,12 @@ antigen use oh-my-zsh
 antigen bundle git
 antigen bundle heroku
 antigen bundle pip
+antigen bundle python
 antigen bundle lein
 antigen bundle command-not-found
+
+# python love
+antigen bundle sharat87/autoenv
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
@@ -25,3 +29,34 @@ antigen theme candy
 antigen apply
 
 alias ls='ls --color=tty -B'
+
+#
+# The use_env call below is a reusable command to activate/create a new Python
+# virtualenv, requiring only a single declarative line of code in your .env files.
+# It only performs an action if the requested virtualenv is not the current one.
+use_env() {
+  typeset venv
+  venv="$1"
+  if [[ "${VIRTUAL_ENV:t}" != "$venv" ]]; then
+    if workon | grep -q "$venv"; then
+      workon "$venv"
+    else
+      echo -n "Create virtualenv $venv now? (Yn) "
+      read answer
+      if [[ "$answer" == "Y" ]]; then
+        mkvirtualenv "$venv"
+      fi
+    fi
+  fi
+
+  #---------------------------------
+  # If its a python project then install the requirements file
+  #---------------------------------
+  if [ -f requirements.txt ];then
+  	pip install -r requirements.txt
+  fi
+}
+
+if [ -f /usr/local/bin/virtualenvwrapper_lazy.sh ];then
+	source /usr/local/bin/virtualenvwrapper_lazy.sh
+fi
