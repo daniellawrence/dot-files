@@ -914,6 +914,13 @@ awful.rules.rules = {
     { rule = { class = "Google-chrome" },
           properties = { tag = tags[1][1],
           			      } },
+    
+    { rule = { class = "Emacs" },
+          properties = { tag = tags[1][3],
+          			      } },
+    { rule = { class = "Emacs24" },
+          properties = { tag = tags[1][3],
+          			      } },
 
     { rule = { class = "Emacs24" },
           properties = { tag = tags[1][3],
