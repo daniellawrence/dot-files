@@ -912,8 +912,10 @@ awful.rules.rules = {
     },
    
     { rule = { class = "Google-chrome" },
-          properties = { tag = tags[1][1],
-          			      } },
+          properties = { tag = tags[1][1],} },
+    
+    { rule = { class = "emacs" },
+      properties = { tag = tags[1][3],} },
     
     { rule = { class = "Emacs" },
           properties = { tag = tags[1][3],
@@ -925,29 +927,31 @@ awful.rules.rules = {
     { rule = { class = "Emacs24" },
           properties = { tag = tags[1][3],
           			      } },
-
-    { rule = { class = "Geany" },
-          properties = { tag = tags[1][2] } },
-
-	  { rule = { class = "Zathura" },
-     	  properties = { tag = tags[1][3] } },
-
-    { rule = { class = "Dia" },
-          properties = { tag = tags[1][4], 
-          floating = true } },
+   -- MEDIA 
+    { rule = { class = "Rhythmbox" },
+          properties = { tag = tags[1][4],
+          			      } },
+    { rule = { class = "rhythmbox" },
+          properties = { tag = tags[1][4],
+          			      } },
+    { rule = { class = "vlc" },
+          properties = { tag = tags[1][4],
+          			      } },
+    { rule = { class = "VLC" },
+          properties = { tag = tags[1][4],
+          			      } },
 
     { rule = { class = "Gimp" },
           properties = { tag = tags[1][4],
           floating = true } },
 
     { rule = { class = "Inkscape" },
-          properties = { tag = tags[1][4] } },      
+          properties = { tag = tags[1][4] } },
 
-    { rule = { class = "Rtorrent" },
-          properties = { tag = tags[1][6] } },
-
-    { rule = { class = "Torrent-search" },
-          properties = { tag = tags[1][6] } },
+    --
+    
+    { rule = { class = "nautilus" },
+          properties = { tag = tags[1][5] } },
 }
 
 -- }}}
