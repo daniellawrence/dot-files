@@ -949,6 +949,8 @@ awful.rules.rules = {
           properties = { tag = tags[1][4] } },
 
     --
+    { rule = { class = "Nautilus" },
+          properties = { tag = tags[1][5] } },
     
     { rule = { class = "nautilus" },
           properties = { tag = tags[1][5] } },
