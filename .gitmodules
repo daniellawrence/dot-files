@@ -1,3 +1,6 @@
 [submodule "work-emacs"]
 	path = work-emacs
 	url = git@dansysadm.com:~/git/work-emacs
+[submodule "gmail-emacs"]
+	path = gmail-emacs
+	url = git@dansysadm.com:~/git/gmail-emacs
