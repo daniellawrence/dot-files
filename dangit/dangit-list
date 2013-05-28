@@ -1,0 +1,5 @@
+#!/bin/bash
+REPO="${1}"
+GIT_SERVER="git@dansysadm.com"
+
+ssh ${GIT_SERVER} 'ls ~/git'

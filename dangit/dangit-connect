@@ -1,0 +1,4 @@
+#!/bin/bash
+#-------------------------------------------
+GIT_SERVER="git@dansysadm.com"
+ssh ${GIT_SERVER} 

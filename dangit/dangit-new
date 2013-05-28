@@ -1,0 +1,48 @@
+#!/bin/bash
+REPO="${1}"
+GIT_SERVER="git@dansysadm.com"
+
+if [[ "${REPO}" == "" ]];then
+	echo "missing repo."
+	echo "usage: $0 'repo-name'"
+	exit 1
+fi
+
+new_repo=$( ssh ${GIT_SERVER} "[[ -e ~/git/${REPO} ]] && echo 'exists'" )
+if [[ "${new_repo}" != "exists" ]];then
+	ssh ${GIT_SERVER}  "mkdir -p ~/git/${REPO}"
+	echo "NEW Repo directory setup"
+fi	
+
+new_git_repo=$( ssh ${GIT_SERVER}  "[[ -e ~/git/${REPO}/HEAD ]] && echo 'exists'" )
+if [[ "${new_git_repo}" != "exists" ]];then
+	ssh ${GIT_SERVER}  "cd ~/git/${REPO} && git --bare init"
+	echo "NEW Git repo setup - ${GIT_SERVER}:~/git/${REPO}"
+fi
+
+if [[ ! -d ~/my_git ]];then
+	mkdir -p ~/my_git
+fi
+
+if [[ ! -d ~/my_git/${REPO} ]];then
+    echo "Cloning into ~/my_git/${REPO}"
+    mkdir -p ~/my_git/${REPO}
+    cd ~/my_git/${REPO}
+    git init
+    touch README
+    echo "${REPO}" > README
+    echo "------------" >> README
+    echo "Created by the dangit script" >> README
+    git add README
+    git commit -m 'frist commit'
+    git remote add origin ${GIT_SERVER}:~/git/${REPO}
+    git push origin master
+    (cd ~/my_git/${REPO}; git push --set-upstream origin master )
+    echo "New local copy of the repo: ${GIT_SERVER}:~/git/${REPO} is setup. "
+else
+    echo "${REPO} already cloned"
+fi
+
+echo "${GIT_SERVER}:${REPO} cloned into ~/my_git/${REPO}"
+
+cd ~/my_git/${REPO}
