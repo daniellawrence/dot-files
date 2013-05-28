@@ -131,8 +131,12 @@ end
 
 -- Define a tag table which hold all screen tags.
 tags = {
-       names = { "web", "term", "emacs", "media", "files", "nub-mode" },       
-       layout = { layouts[2], layouts[2], layouts[2], layouts[2], layouts[2], layouts[1] } 
+       -- names = { "web", "term", "emacs", "media", "files", "nub-mode" },       
+       names = { "一", "二", "三", "四", "五", "六", "七", "八", "九", "十" },       
+       layout = { 
+		layouts[2], layouts[2], layouts[2], layouts[2], layouts[2], layouts[1],
+		layouts[2], layouts[2], layouts[2], layouts[2],
+ 		} 
        }
 for s = 1, screen.count() do
 -- Each screen has its own tag table.
@@ -455,8 +459,8 @@ vicious.register(batwidget, vicious.widgets.bat,
           -- critical
           elseif (args[2] <= 5 and batstate() == 'Discharging') then
                naughty.notify({
-                    text = "sto per spegnermi...",
-                    title = "Carica quasi esaurita!",
+                    text = "Battery < 5 %",
+                    title = "Srly. Plug yo shit in",
                     position = "top_right",
                     timeout = 1,
                     fg="#000000",
@@ -467,8 +471,8 @@ vicious.register(batwidget, vicious.widgets.bat,
           -- low
           elseif (args[2] <= 10 and batstate() == 'Discharging') then
                naughty.notify({
-                    text = "attacca il cavo!",
-                    title = "Carica bassa",
+                    text = "Battery < 10 %",
+                    title = "Plug yo shit in",
                     position = "top_right",
                     timeout = 1,
                     fg="#ffffff",
@@ -622,41 +626,41 @@ for s = 1, screen.count() do
     -- Widgets that are aligned to the upper right
     local right_layout = wibox.layout.fixed.horizontal()
     if s == 1 then right_layout:add(wibox.widget.systray()) end
-    right_layout:add(netdownicon)
-    right_layout:add(netdowninfo)
-    right_layout:add(spacer)
-    right_layout:add(netupicon)
-    right_layout:add(netupinfo)
-    right_layout:add(spacer)
-    right_layout:add(volicon)
-    right_layout:add(volumewidget)
-    right_layout:add(spacer)
-    right_layout:add(memicon)
-    right_layout:add(memwidget)
-    right_layout:add(spacer)
-    right_layout:add(cpuicon)
-    right_layout:add(cpuwidget)
-    right_layout:add(spacer)
-    right_layout:add(fshicon)
-    right_layout:add(fshwidget)
-    right_layout:add(spacer)
-    right_layout:add(uptimeicon)
-    right_layout:add(uptimewidget) 
-    right_layout:add(spacer)
-    right_layout:add(weathericon)
-    right_layout:add(weatherwidget)
-    right_layout:add(spacer)
-    right_layout:add(tempicon)
-    right_layout:add(tempwidget)
-    right_layout:add(spacer)
-    right_layout:add(mygmailimg)
-    right_layout:add(mygmail)
-    right_layout:add(spacer)     
-    right_layout:add(baticon)
-    right_layout:add(batwidget)
+    -- right_layout:add(netdownicon)
+    -- right_layout:add(netdowninfo)
+    -- right_layout:add(spacer)
+    -- right_layout:add(netupicon)
+    -- right_layout:add(netupinfo)
+    -- right_layout:add(spacer)
+    -- right_layout:add(volicon)
+    -- right_layout:add(volumewidget)
+    -- right_layout:add(spacer)
+    -- right_layout:add(memicon)
+    -- right_layout:add(memwidget)
+    -- right_layout:add(spacer)
+    -- right_layout:add(cpuicon)
+    -- right_layout:add(cpuwidget)
+    -- right_layout:add(spacer)
+    -- right_layout:add(fshicon)
+    -- right_layout:add(fshwidget)
+    -- right_layout:add(spacer)
+    -- right_layout:add(uptimeicon)
+    -- right_layout:add(uptimewidget) 
+    -- right_layout:add(spacer)
+    -- right_layout:add(weathericon)
+    -- right_layout:add(weatherwidget)
+    -- right_layout:add(spacer)
+    -- right_layout:add(tempicon)
+    -- right_layout:add(tempwidget)
+    -- right_layout:add(spacer)
+    -- right_layout:add(mygmailimg)
+    -- right_layout:add(mygmail)
+    -- right_layout:add(spacer)     
+    -- right_layout:add(baticon)
+    -- right_layout:add(batwidget)
     --right_layout:add(spacer)
-    right_layout:add(clockicon)
-    right_layout:add(mytextclock)
+    -- right_layout:add(clockicon)
+    -- right_layout:add(mytextclock)
     --right_layout:add(mylayoutbox[s])
 
     -- Now bring it all together (with the tasklist in the middle)
@@ -705,6 +709,21 @@ globalkeys = awful.util.table.join(
 
     -- Capture a screenshot
     awful.key({ altkey }, "p", function() awful.util.spawn("screenshot",false) end),
+    
+    -- screens
+    -- awful.key({ modkey, "Control"   }, "Left", 
+	      -- function()
+		 -- for i = 1, screen.count() do
+		    -- awful.tag.viewprev(screen[i])
+		 -- end
+	      -- end ),
+-- 
+    -- awful.key({ modkey, "Control"   }, "Right", 
+	      -- function()
+		 -- for i = 1, screen.count() do
+		    -- awful.tag.viewnext(screen[i])
+		 -- end
+	      -- end ),
 
     -- Move clients
     awful.key({ altkey }, "Next",  function () awful.client.moveresize( 1,  1, -2, -2) end),
@@ -1044,3 +1063,5 @@ run_once("emacs")
 
 -- start a terminal
 run_once("gnome-terminal")
+
+
