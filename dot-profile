@@ -23,8 +23,8 @@ fi
 
 alias ls='ls --color=tty -B'
 
-
-export EDITOR='emacsclient'
-export GIT_EDITOR='emacsclient'
-alias vi='emacsclient'
-alias vim='emacsclient'
+export EDITOR='emacsclient --alternate-editor vim'
+export GIT_EDITOR='emacsclient --alternate-editor vim'
+alias vi='emacsclient --alternate-editor vim'
+alias vim='emacsclient --alternate-editor vim'
+export ALTERNATE_EDITOR=/usr/bin/vi
