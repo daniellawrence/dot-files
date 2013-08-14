@@ -78,3 +78,11 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (setq x-select-enable-clipboard t)
 
 (server-start)
+
+
+(add-to-list 'load-path "~/.emacs.d/")
+
+;; emacs-jedi
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)                      ; optional
+(setq jedi:complete-on-dot t)                 ; optional
