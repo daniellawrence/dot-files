@@ -342,25 +342,6 @@ vicious.register(weatherwidget, vicious.widgets.weather,
         end
     end, 1800, "YMML" )
 
--- /home fs widget
-fshicon = wibox.widget.imagebox()
-fshicon:set_image(theme.confdir .. "/widgets/fs.png")
-fshwidget = wibox.widget.textbox()
-    vicious.register(fshwidget, vicious.widgets.fs,
-    function (widget, args)
-        if args["{/ used_p}"] >= 95 and args["{/ used_p}"] < 99 then
-            return colwhi .. args["{/home used_p}"] .. "%" .. coldef
-        elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
-            naughty.notify({ title = "Attenzione", text = "Partizione / esaurita!\nFa' un po' di spazio.",
-                             timeout = 10,
-                             position = "top_right",
-                             fg = beautiful.fg_urgent,
-                             bg = beautiful.bg_urgent })
-            return colwhi .. args["{/ used_p}"] .. "%" .. coldef
-        else
-            return azure .. args["{/ used_p}"] .. "%" .. coldef
-        end
-    end, 620)
 
 local infos = nil
 
@@ -390,8 +371,6 @@ function add_info()
     })
 end
 
-fshwidget:connect_signal('mouse::enter', function () add_info() end)
-fshwidget:connect_signal('mouse::leave', function () remove_info() end)
 
 -- Uptime
 uptimeicon = wibox.widget.imagebox()
