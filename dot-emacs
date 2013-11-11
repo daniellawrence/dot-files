@@ -3,7 +3,11 @@
 (add-to-list 'package-archives 
     '("marmalade" .
       "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+             '("melpa" .
+	       "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
+
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -14,6 +18,8 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (tango-dark)))
+ '(flymake-after-syntax-check-hook nil)
+ '(flymake-allowed-file-name-masks (quote (("\\.\\(?:c\\(?:xx\\|\\+\\+\\)?\\|CC\\)\\'" flymake-simple-make-init) ("\\.xml\\'" flymake-xml-init) ("\\.html?\\'" flymake-xml-init) ("\\.pp\\'" flymake-puppet-init) ("\\.p[ml]\\'" flymake-perl-init) ("\\.php[345]?\\'" flymake-php-init) ("\\.js\\'" flymake-javascript-init) ("\\.css\\'" flymake-css-init) ("\\.h\\'" flymake-master-make-header-init flymake-master-cleanup) ("\\.java\\'" flymake-simple-make-java-init flymake-simple-java-cleanup) ("[0-9]+\\.tex\\'" flymake-master-tex-init flymake-master-cleanup) ("\\.tex\\'" flymake-simple-tex-init) ("\\.idl\\'" flymake-simple-make-init) ("\\.spec\\'" flymake-specfile-init) ("\\.po\\'" flymake-pofile-init))))
  '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -22,59 +28,82 @@
  ;; If there is more than one, they won't work right.
  )
 
-(defun run-current-file ()
-  "Execute the current file.
-For example, if the current buffer is the file xx.py,
-then it'll call “python xx.py” in a shell.
-The file can be php, perl, python, ruby, javascript, bash, ocaml, vb, elisp.
-File suffix is used to determine what program to run.
-
-If the file is modified, ask if you want to save first.
-
-If the file is emacs lisp, run the byte compiled version if exist."
-  (interactive)
-  (let* (
-         (suffixMap
-          `(
-            ("bash" . "bash")
-            ("zsh" . "bash")
-            ("ksh" . "bash")
-            ("sh" . "bash")
-            ("php" . "php")
-            ("pl" . "perl")
-            ("py" . "python")
-            ("py3" . ,(if (string-equal system-type "windows-nt") "c:/Python32/python.exe" "python3"))
-            ("rb" . "ruby")
-            ("js" . "node")             ; node.js
-            ("sh" . "bash")
-            ("ml" . "ocaml")
-            ("vbs" . "cscript")
-            )
-          )
-         (fName (buffer-file-name))
-         (fSuffix (file-name-extension fName))
-         ;;(progName (cdr (assoc fSuffix suffixMap)))
-	 (progName "exec")
-         (cmdStr (concat progName " \""   fName "\""))
-         )
-
-    (when (buffer-modified-p)
-      (when (y-or-n-p "Buffer modified. Do you want to save first?")
-          (save-buffer) ) )
-
-    (if (string-equal fSuffix "el") ; special case for emacs lisp
-        (load (file-name-sans-extension fName))
-      (if progName
-          (progn
-            (message "Running…")
-            (shell-command cmdStr "*run-current-file output*" )
-            )
-        (message "No recognized program file suffix for this file.")
-        ) ) ))
-
-(global-set-key (kbd "<f8>") 'run-current-file)
-
 
 (setq x-select-enable-clipboard t)
 
 (server-start)
+
+;; puppet flymake
+;;(add-to-list 'load-path "~/.emacs.d/") ; only without ELPA/el-get
+(autoload 'puppet-mode "puppet-mode" "Major mode for editing puppet manifests")
+    (add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+    (require 'flymake-puppet)
+    (add-hook 'puppet-mode-hook (lambda () (flymake-puppet-load)))
+
+;;
+(require 'align)
+
+
+
+(defun my-rgrep ()
+  "Search the current project."
+  (interactive)
+  (let ((default-directory
+          (if vc-mode
+              (vc-call-backend (vc-backend buffer-file-name) 'root default-directory)
+            default-directory)))
+    (call-interactively 'rgrep)))
+
+
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)                      ; optional
+(setq jedi:complete-on-dot t)                 ; optional
+
+(require 'flymake-python-pyflakes)
+(add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+
+
+(require 'uniquify)
+(setq uniquify-buffer-name-style 'reverse)
+
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(require 'helm-config)
+
+;; Helper
+(global-set-key (kbd "C-c h") 'helm-mini)
+(helm-mode 1)
+
+(require 'helm-descbinds)
+(helm-descbinds-mode)
+
+(require 'helm-files)
+(setq helm-idle-delay 0.1)
+(setq helm-input-idle-delay 0.1)
+
+(menu-bar-mode -1) 
+
+
+(require 'flymake-jshint)
+(add-hook 'js-mode-hook 'flymake-jshint-load)
+
+(defun bang-other ()
+  "Execute a !! in the other window, which should be a csh shell window"
+  (interactive)
+  (other-window 1)
+  (insert-string "!!")
+  (comint-send-input)
+  (other-window -1)
+)
+
+;; Bugger off annoying ERC/IRC messages
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+
+;; enable line numbers like vim
+(setq line-number-mode t)
+(setq column-number-mode t)
+
+;; Bugger off the highlight, just underline the errors
+(custom-set-faces
+ '(flymake-errline ((((class color)) (:underline "red"))))
+ '(flymake-warnline ((((class color)) (:underline "yellow")))))

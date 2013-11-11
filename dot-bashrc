@@ -117,3 +117,36 @@ if ! shopt -oq posix; then
 fi
 
 export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
+/usr/bin/zsh
+has_virtualenv() {
+    if [ -e .venv ]; then
+        workon `cat .venv`
+    fi
+}
+venv_cd() {
+    builtin cd "$@" && has_virtualenv
+}
+alias cd="venv_cd"
+export WORKON_HOME=~/Envs
+source /usr/local/bin/virtualenvwrapper.sh
+
+# added by travis gem
+source /home/dlawrence/.travis/travis.sh
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+export PATH="/usr/local/rbenv/shims:${PATH}"
+source "/usr/lib/rbenv/libexec/../completions/rbenv.bash"
+rbenv rehash 2>/dev/null
+rbenv() {
+  command="$1"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  shell)
+    eval `rbenv "sh-$command" "$@"`;;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
