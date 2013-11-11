@@ -60,3 +60,7 @@ use_env() {
 if [ -f /usr/local/bin/virtualenvwrapper_lazy.sh ];then
 	source /usr/local/bin/virtualenvwrapper_lazy.sh
 fi
+
+alias vi='emacsclient -t'
+alias vim='emacsclient -t'
+
