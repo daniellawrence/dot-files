@@ -30,3 +30,6 @@ alias vim='emacsclient --alternate-editor vim'
 export ALTERNATE_EDITOR=/usr/bin/vi
 export PATH=$PATH:/usr/local/go/bin
 export GOROOT=/usr/local/go
+
+# Make sure the dot files are all in sync
+(cd ~/github/dot-files && git fetch &)
