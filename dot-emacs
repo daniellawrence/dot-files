@@ -79,13 +79,11 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-;;
-;(require 'helm-config)
-;(require 'helm-flymake)
+;; Helm
+(require 'helm-config)
+(require 'helm-flymake)
 (global-set-key (kbd "C-c h") 'helm-mini)
 (helm-mode 1)
-
-;; 
 (require 'helm-flymake)
 
 ;; Disable all the fricken menu bars...
@@ -113,3 +111,40 @@ If the file is emacs lisp, run the byte compiled version if exist."
 
 (require 'puppetfile-mode)
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
+
+(setq tramp-default-method "ssh")
+
+;;
+(require 'flyspell-lazy)
+(flyspell-lazy-mode 1)
+(flyspell-mode 1)
+
+
+;;
+;;(setq erc-autojoin-channels-alist
+;;      '(("freenode.net" "#puppet" "#puppetboard" "#shipyard" "#python")))
+;;(erc :server "irc.freenode.net" :port 6667 :nick "dannyla")
+;;(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+
+;; yaml mode for yaml files
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+
+;; check the crap out of python
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+               'flymake-create-temp-inplace))
+       (local-file (file-relative-name
+            temp-file
+            (file-name-directory buffer-file-name))))
+      (list "pycheckers"  (list local-file))))
+   (add-to-list 'flymake-allowed-file-name-masks
+             '("\\.py\\'" flymake-pyflakes-init)))
+
+
+
+(add-to-list 'load-path "/path/to/py-autopep8.el/")
+(require 'py-autopep8)
+(add-hook 'before-save-hook 'python-fmt-before-save)

@@ -30,6 +30,16 @@ antigen apply
 
 alias ls='ls --color=tty -B'
 
+# add custom completion scripts
+fpath=(~/.zsh/completion $fpath)
+ 
+# compsys initialization
+autoload -U compinit
+compinit
+ 
+# show completion menu when number of options is at least 2
+zstyle ':completion:*' menu select=2
+
 #
 # The use_env call below is a reusable command to activate/create a new Python
 # virtualenv, requiring only a single declarative line of code in your .env files.
