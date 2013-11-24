@@ -107,3 +107,13 @@
 (custom-set-faces
  '(flymake-errline ((((class color)) (:underline "red"))))
  '(flymake-warnline ((((class color)) (:underline "yellow")))))
+
+(package-initialize)
+;; check if the packages is installed; if not, install it.
+(mapc
+ (lambda (package)
+   (or (package-installed-p package)
+       (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
+           (package-install package))))
+ '(dired+ magit rainbow-mode jedi helm evil puppet-mode
+   flymake flymake-puppet flymake-jshint))
