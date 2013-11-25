@@ -148,3 +148,20 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (add-to-list 'load-path "/path/to/py-autopep8.el/")
 (require 'py-autopep8)
 (add-hook 'before-save-hook 'python-fmt-before-save)
+
+(package-initialize)
+;; check if the packages is installed; if not, install it.
+(mapc
+ (lambda (package)
+   (or (package-installed-p package)
+       (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
+           (package-install package))))
+ '(dired+ magit rainbow-mode jedi helm evil puppet-mode
+   flymake flymake-puppet flymake-jshint))
+
+;; yaml mode for yaml files
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+
+
