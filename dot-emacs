@@ -1,9 +1,11 @@
-;; Install the maralade package repo.:
+; INSTALL THE maralade package repo.:
 (require 'package)
 (add-to-list 'package-archives 
     '("marmalade" .
       "http://marmalade-repo.org/packages/"))
-(package-initialize)
+;;
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 (package-initialize)
 ;; check if the packages is installed; if not, install it.
@@ -14,12 +16,23 @@
            (package-install package))))
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
    flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
-   yaml-mode))
+   yaml-mode ace-jump-mode))
 
 ;; Enable evil for vim bindings
 (require 'evil)
 (evil-mode 1)
 
+;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
+;; --------------------
+;; Set mark
+;; C-SPC
+;; Jump to word
+;; C-c SPC <First_letter_of_word> <LETTER>
+;; Jump Back to mark
+;; C-U C-SPC
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+    
 
 (defun run-current-file ()
   "Execute the current file.
@@ -86,9 +99,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (setq jedi:setup-keys t)                      ; optional
 (setq jedi:complete-on-dot t)                 ; optional
 
-;;
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
 ;; Helm
 (require 'helm-config)
