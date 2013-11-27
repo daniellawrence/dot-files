@@ -1,11 +1,12 @@
 ;; Install the maralade package repo.:
 (require 'package)
 (add-to-list 'package-archives 
-    '("marmalade" .
-      "http://marmalade-repo.org/packages/"))
+    '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+;;
 (package-initialize)
 
-(package-initialize)
 ;; check if the packages is installed; if not, install it.
 (mapc
  (lambda (package)
@@ -86,10 +87,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (setq jedi:setup-keys t)                      ; optional
 (setq jedi:complete-on-dot t)                 ; optional
 
-;;
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
-
 ;; Helm
 (require 'helm-config)
 (require 'helm-flymake)
@@ -120,9 +117,11 @@ If the file is emacs lisp, run the byte compiled version if exist."
  ;; If there is more than one, they won't work right.
  )
 
+;; Puppet
 (require 'puppetfile-mode)
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
 
+;; Editing files on remote machines
 (setq tramp-default-method "ssh")
 
 ;;
@@ -159,11 +158,5 @@ If the file is emacs lisp, run the byte compiled version if exist."
 ;; (add-to-list 'load-path "/path/to/py-autopep8.el/")
 ;; (require 'py-autopep8)
 ;; (add-hook 'before-save-hook 'python-fmt-before-save)
-
-
-;; yaml mode for yaml files
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
 
