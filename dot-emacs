@@ -16,7 +16,7 @@
            (package-install package))))
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
    flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
-   yaml-mode ace-jump-mode))
+   yaml-mode ace-jump-mode expand-region))
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -176,4 +176,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
+;; cool expand region/secltion via C-=
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
