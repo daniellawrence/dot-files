@@ -16,7 +16,7 @@ wibox           = require("wibox")
 beautiful       = require("beautiful")
 naughty         = require("naughty")
 vicious         = require("vicious")
-scratch         = require("scratch")
+-- scratch         = require("scratch")
 
 -- }}}
 
@@ -80,12 +80,13 @@ active_theme = themes .. "/multicolor"
 -- Themes define colours, icons, and wallpapers
 beautiful.init(active_theme .. "/theme.lua")
 
-terminal = '/usr/bin/gnome-terminal'
+terminal = '/usr/bin/terminator'
+
 editor = os.getenv("EDITOR")
 editor = 'emacsclient'
 editor_cmd = terminal .. " -e " .. editor
 gui_editor = "emacsclient"
-browser = "google-chrome"
+browser = "iceweasel"
 mail = terminal .. " -e mutt "
 chat = terminal .. " -e irssi "
 tasks = terminal .. " -e htop "
@@ -342,25 +343,6 @@ vicious.register(weatherwidget, vicious.widgets.weather,
         end
     end, 1800, "YMML" )
 
--- /home fs widget
-fshicon = wibox.widget.imagebox()
-fshicon:set_image(theme.confdir .. "/widgets/fs.png")
-fshwidget = wibox.widget.textbox()
-    vicious.register(fshwidget, vicious.widgets.fs,
-    function (widget, args)
-        if args["{/ used_p}"] >= 95 and args["{/ used_p}"] < 99 then
-            return colwhi .. args["{/home used_p}"] .. "%" .. coldef
-        elseif args["{/ used_p}"] >= 99 and args["{/ used_p}"] <= 100 then
-            naughty.notify({ title = "Attenzione", text = "Partizione / esaurita!\nFa' un po' di spazio.",
-                             timeout = 10,
-                             position = "top_right",
-                             fg = beautiful.fg_urgent,
-                             bg = beautiful.bg_urgent })
-            return colwhi .. args["{/ used_p}"] .. "%" .. coldef
-        else
-            return azure .. args["{/ used_p}"] .. "%" .. coldef
-        end
-    end, 620)
 
 local infos = nil
 
@@ -390,8 +372,6 @@ function add_info()
     })
 end
 
-fshwidget:connect_signal('mouse::enter', function () add_info() end)
-fshwidget:connect_signal('mouse::leave', function () remove_info() end)
 
 -- Uptime
 uptimeicon = wibox.widget.imagebox()
@@ -787,7 +767,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
     -- Dropdown terminal
-    awful.key({ modkey,	          }, "z",     function () scratch.drop(terminal) end),
+    -- awful.key({ modkey,	          }, "z",     function () scratch.drop(terminal) end),
     
     -- Volume control
     awful.key({ "Control" }, "Up", function ()
@@ -934,17 +914,17 @@ awful.rules.rules = {
     --      properties = { tag = tags[1][1],} },
     
     { rule = { class = "emacs" },
-      properties = { tag = tags[1][3],} },
+      properties = { tag = tags[1][2],} },
     
     { rule = { class = "Emacs" },
-          properties = { tag = tags[1][3],
+          properties = { tag = tags[1][2],
           			      } },
     { rule = { class = "Emacs24" },
-          properties = { tag = tags[1][3],
+          properties = { tag = tags[1][2],
           			      } },
 
     { rule = { class = "Emacs24" },
-          properties = { tag = tags[1][3],
+          properties = { tag = tags[1][2],
           			      } },
    -- MEDIA 
     { rule = { class = "Rhythmbox" },
@@ -1056,12 +1036,10 @@ end
 
 
 -- start a web browser
-run_once("google-chrome")
+run_once(browser)
 
 -- start an editor
 run_once("emacs")
 
 -- start a terminal
-run_once("gnome-terminal")
-
-
+run_once(terminal)
