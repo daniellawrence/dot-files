@@ -1,0 +1,182 @@
+; INSTALL THE maralade package repo.:
+(require 'package)
+(add-to-list 'package-archives 
+    '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives
+  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
+
+;; check if the packages is installed; if not, install it.
+(mapc
+ (lambda (package)
+   (or (package-installed-p package)
+       (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
+           (package-install package))))
+ '(dired+ magit rainbow-mode jedi helm evil puppet-mode
+   flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
+   yaml-mode ace-jump-mode expand-region))
+
+;; Enable evil for vim bindings
+(require 'evil)
+(evil-mode 1)
+
+;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
+;; --------------------
+;; Set mark
+;; C-SPC
+;; Jump to word
+;; C-c SPC <First_letter_of_word> <LETTER>
+;; Jump Back to mark
+;; C-U C-SPC
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+    
+
+(defun run-current-file ()
+  "Execute the current file.
+For example, if the current buffer is the file xx.py,
+then it'll call “python xx.py” in a shell.
+The file can be php, perl, python, ruby, javascript, bash, ocaml, vb, elisp.
+File suffix is used to determine what program to run.
+
+If the file is modified, ask if you want to save first.
+
+If the file is emacs lisp, run the byte compiled version if exist."
+  (interactive)
+  (let* (
+         (suffixMap
+          `(
+            ("bash" . "bash")
+            ("zsh" . "bash")
+            ("ksh" . "bash")
+            ("sh" . "bash")
+            ("php" . "php")
+            ("pl" . "perl")
+            ("py" . "python")
+            ("py3" . ,(if (string-equal system-type "windows-nt") "c:/Python32/python.exe" "python3"))
+            ("rb" . "ruby")
+            ("js" . "node")             ; node.js
+            ("sh" . "bash")
+            ("ml" . "ocaml")
+            ("vbs" . "cscript")
+            )
+          )
+         (fName (buffer-file-name))
+         (fSuffix (file-name-extension fName))
+         ;;(progName (cdr (assoc fSuffix suffixMap)))
+	 (progName "exec")
+         (cmdStr (concat progName " \""   fName "\""))
+         )
+
+    (when (buffer-modified-p)
+      (when (y-or-n-p "Buffer modified. Do you want to save first?")
+          (save-buffer) ) )
+
+    (if (string-equal fSuffix "el") ; special case for emacs lisp
+        (load (file-name-sans-extension fName))
+      (if progName
+          (progn
+            (message "Running…")
+            (shell-command cmdStr "*run-current-file output*" )
+            )
+        (message "No recognized program file suffix for this file.")
+        ) ) ))
+
+(global-set-key (kbd "<f8>") 'run-current-file)
+
+
+(setq x-select-enable-clipboard t)
+
+(server-start)
+
+
+(add-to-list 'load-path "~/.emacs.d/")
+
+;; emacs-jedi
+(add-hook 'python-mode-hook 'jedi:setup)
+(setq jedi:setup-keys t)                      ; optional
+(setq jedi:complete-on-dot t)                 ; optional
+
+;; Helm
+(require 'helm-config)
+(require 'helm-flymake)
+(global-set-key (kbd "C-c h") 'helm-mini)
+(helm-mode 1)
+(require 'helm-flymake)
+
+;; Disable all the fricken menu bars...
+(menu-bar-mode -1)
+(toggle-scroll-bar -1)
+(tool-bar-mode -1) 
+
+;; Load custom themes from ~/.emacs.d/themes
+(add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
+
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (flatland)))
+ '(custom-safe-themes (quote ("15adb1c26eee48cbb677c67d1486a4db5c97e3cfffd1c3a4a4fc9651bcfbc5b1" "6e05b0a83b83b5efd63c74698e1ad6feaddf69a50b15a8b4a83b157aac45127c" "fe243221e262fe5144e89bb5025e7848cd9fb857ff5b2d8447d115e58fede8f7" default)))
+ '(inhibit-startup-screen t))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; Puppet
+(require 'puppetfile-mode)
+(add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
+
+;; Editing files on remote machines
+(setq tramp-default-method "ssh")
+
+;;
+(require 'flyspell-lazy)
+(flyspell-lazy-mode 0)
+(flyspell-mode 0)
+
+
+;;
+;;(setq erc-autojoin-channels-alist
+;;      '(("freenode.net" "#puppet" "#puppetboard" "#shipyard" "#python")))
+;;(erc :server "irc.freenode.net" :port 6667 :nick "dannyla")
+;;(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+
+;; yaml mode for yaml files
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+
+;; check the crap out of python
+(when (load "flymake" t)
+  (defun flymake-pyflakes-init ()
+    (let* ((temp-file (flymake-init-create-temp-buffer-copy
+               'flymake-create-temp-inplace))
+       (local-file (file-relative-name
+            temp-file
+            (file-name-directory buffer-file-name))))
+      (list "pycheckers"  (list local-file))))
+   (add-to-list 'flymake-allowed-file-name-masks
+             '("\\.py\\'" flymake-pyflakes-init)))
+
+
+
+;; (add-to-list 'load-path "/path/to/py-autopep8.el/")
+;; (require 'py-autopep8)
+;; (add-hook 'before-save-hook 'python-fmt-before-save)
+
+
+;; yaml mode for yaml files
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
+
+;; cool expand region/secltion via C-=
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
