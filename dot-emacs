@@ -1,6 +1,6 @@
 ; INSTALL THE maralade package repo.:
 (require 'package)
-(add-to-list 'package-archives 
+(add-to-list 'package-archives
     '("marmalade" . "http://marmalade-repo.org/packages/"))
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
@@ -12,11 +12,12 @@
 (mapc
  (lambda (package)
    (or (package-installed-p package)
-       (if (y-or-n-p (format "Package %s is missing. Install it? " package)) 
-           (package-install package))))
+       (if (y-or-n-p (format "Package %s is missing. Install it? " package))
+	   (package-install package))))
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
    flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
-   yaml-mode ace-jump-mode expand-region))
+   yaml-mode ace-jump-mode expand-region flymake-python-pyflakes))
+
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -32,7 +33,7 @@
 ;; C-U C-SPC
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-    
+
 
 (defun run-current-file ()
   "Execute the current file.
@@ -46,43 +47,43 @@ If the file is modified, ask if you want to save first.
 If the file is emacs lisp, run the byte compiled version if exist."
   (interactive)
   (let* (
-         (suffixMap
-          `(
-            ("bash" . "bash")
-            ("zsh" . "bash")
-            ("ksh" . "bash")
-            ("sh" . "bash")
-            ("php" . "php")
-            ("pl" . "perl")
-            ("py" . "python")
-            ("py3" . ,(if (string-equal system-type "windows-nt") "c:/Python32/python.exe" "python3"))
-            ("rb" . "ruby")
-            ("js" . "node")             ; node.js
-            ("sh" . "bash")
-            ("ml" . "ocaml")
-            ("vbs" . "cscript")
-            )
-          )
-         (fName (buffer-file-name))
-         (fSuffix (file-name-extension fName))
-         ;;(progName (cdr (assoc fSuffix suffixMap)))
+	 (suffixMap
+	  `(
+	    ("bash" . "bash")
+	    ("zsh" . "bash")
+	    ("ksh" . "bash")
+	    ("sh" . "bash")
+	    ("php" . "php")
+	    ("pl" . "perl")
+	    ("py" . "python")
+	    ("py3" . ,(if (string-equal system-type "windows-nt") "c:/Python32/python.exe" "python3"))
+	    ("rb" . "ruby")
+	    ("js" . "node")             ; node.js
+	    ("sh" . "bash")
+	    ("ml" . "ocaml")
+	    ("vbs" . "cscript")
+	    )
+	  )
+	 (fName (buffer-file-name))
+	 (fSuffix (file-name-extension fName))
+	 ;;(progName (cdr (assoc fSuffix suffixMap)))
 	 (progName "exec")
-         (cmdStr (concat progName " \""   fName "\""))
-         )
+	 (cmdStr (concat progName " \""   fName "\""))
+	 )
 
     (when (buffer-modified-p)
       (when (y-or-n-p "Buffer modified. Do you want to save first?")
-          (save-buffer) ) )
+	  (save-buffer) ) )
 
     (if (string-equal fSuffix "el") ; special case for emacs lisp
-        (load (file-name-sans-extension fName))
+	(load (file-name-sans-extension fName))
       (if progName
-          (progn
-            (message "Running…")
-            (shell-command cmdStr "*run-current-file output*" )
-            )
-        (message "No recognized program file suffix for this file.")
-        ) ) ))
+	  (progn
+	    (message "Running…")
+	    (shell-command cmdStr "*run-current-file output*" )
+	    )
+	(message "No recognized program file suffix for this file.")
+	) ) ))
 
 (global-set-key (kbd "<f8>") 'run-current-file)
 
@@ -109,7 +110,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
 ;; Disable all the fricken menu bars...
 (menu-bar-mode -1)
 (toggle-scroll-bar -1)
-(tool-bar-mode -1) 
+(tool-bar-mode -1)
 
 ;; Load custom themes from ~/.emacs.d/themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
@@ -157,13 +158,13 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (when (load "flymake" t)
   (defun flymake-pyflakes-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
-               'flymake-create-temp-inplace))
+	       'flymake-create-temp-inplace))
        (local-file (file-relative-name
-            temp-file
-            (file-name-directory buffer-file-name))))
+	    temp-file
+	    (file-name-directory buffer-file-name))))
       (list "pycheckers"  (list local-file))))
    (add-to-list 'flymake-allowed-file-name-masks
-             '("\\.py\\'" flymake-pyflakes-init)))
+	     '("\\.py\\'" flymake-pyflakes-init)))
 
 
 
@@ -180,3 +181,39 @@ If the file is emacs lisp, run the byte compiled version if exist."
 ;; cool expand region/secltion via C-=
 (require 'expand-region)
 (global-set-key (kbd "C-=") 'er/expand-region)
+
+;; Don't show the startup screen
+(setq inhibit-startup-message t)
+
+;; "y or n" instead of "yes or no"
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; Display line and column numbers
+(setq line-number-mode    t)
+(setq column-number-mode  t)
+
+;; Emacs gurus don't need no stinking scroll bars
+(when (fboundp 'toggle-scroll-bar)
+  (toggle-scroll-bar -1))
+
+;; Explicitly show the end of a buffer
+(set-default 'indicate-empty-lines t)
+
+;; Emacs gurus don't need no stinking scroll bars
+(when (fboundp 'toggle-scroll-bar)
+  (toggle-scroll-bar -1))
+
+;; Explicitly show the end of a buffer
+(set-default 'indicate-empty-lines t)
+
+;; Trailing whitespace is unnecessary
+(defvar whitespace-cleanup-on-save t)
+;; (setq whitespace-cleanup-on-save nil)
+(add-hook 'before-save-hook
+	  (lambda ()
+	    (if whitespace-cleanup-on-save (whitespace-cleanup))))
+
+;;
+(require 'flymake-python-pyflakes)
+(add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+(setq flymake-python-pyflakes-executable "flake8")
