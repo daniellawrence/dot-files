@@ -323,26 +323,6 @@ mytextclock:connect_signal("mouse::leave", hide)
 mytextclock:buttons(util.table.join( awful.button({ }, 1, function() show(-1) end),
                                      awful.button({ }, 3, function() show(1) end)))
 
--- Vicious weather widget
-weathericon = wibox.widget.imagebox()
-weathericon:set_image(theme.confdir .. "/widgets/dish.png")
-weatherwidget = wibox.widget.textbox()
-vicious.register(weatherwidget, vicious.widgets.weather,
-    function (widget, args)
-        if args["{tempf}"] == "N/A" then
-            return "No Info"
-        else
-            -- Italian localization
-            -- work in progress
-            if( args["{sky}"] == "N/A" ) then args["{sky}"] = "sereno"
-            elseif( args["{sky}"] == "Clear" ) then args["{sky}"] = "sereno"
-            elseif( args["{sky}"] == "Cloudy" ) then args["{sky}"] = "nuvoloso"
-            elseif( args["{sky}"] == "Mostly Cloudy" ) then args["{sky}"] = "molto nuvoloso"
-            end
-            return "" .. lightpurple .. args["{sky}"] .. " @ " .. args["{tempc}"] .. "°C" .. coldef .. ""
-        end
-    end, 1800, "YMML" )
-
 
 local infos = nil
 
