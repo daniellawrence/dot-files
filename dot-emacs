@@ -2,11 +2,11 @@
 (require 'package)
 (add-to-list 'package-archives
     '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
+(package-refresh-contents)
 
 ;; check if the packages is installed; if not, install it.
 (mapc
@@ -16,12 +16,15 @@
 	   (package-install package))))
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
    flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
-   yaml-mode ace-jump-mode expand-region flymake-python-pyflakes))
-
+   yaml-mode ace-jump-mode expand-region nginx-mode apache-mode flymake-python-pyflakes))
 
 ;; Enable evil for vim bindings
 (require 'evil)
 (evil-mode 1)
+
+;; nginx and apache modes
+(require 'nginx-mode)
+(require 'apache-mode)
 
 ;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
 ;; --------------------
