@@ -2,11 +2,11 @@
 (require 'package)
 (add-to-list 'package-archives 
     '("marmalade" . "http://marmalade-repo.org/packages/"))
-(add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(package-initialize)
 (add-to-list 'package-archives
   '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
+(package-refresh-contents)
 
 ;; check if the packages is installed; if not, install it.
 (mapc
@@ -16,11 +16,15 @@
            (package-install package))))
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
    flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
-   yaml-mode ace-jump-mode expand-region))
+   yaml-mode ace-jump-mode expand-region nginx-mode apache-mode))
 
 ;; Enable evil for vim bindings
 (require 'evil)
 (evil-mode 1)
+
+;; nginx and apache modes
+(require 'nginx-mode)
+(require 'apache-mode)
 
 ;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
 ;; --------------------
@@ -176,7 +180,3 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-
-;; cool expand region/secltion via C-=
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
