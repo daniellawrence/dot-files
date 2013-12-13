@@ -34,10 +34,11 @@ export GOROOT=/usr/local/go
 # Make sure the dot files are all in sync
 (cd ~/github/dot-files && git fetch &)
 
+gnome-keyring-daemon
+
 # Load all the private keys
 cd ~/.ssh
 for i in ls id* |grep -v pub
  do
  ssh-add $i
 done
- 
