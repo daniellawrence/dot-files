@@ -1,10 +1,10 @@
-; INSTALL THE maralade package repo.:
+					; INSTALL THE maralade package repo.:
 (require 'package)
 (add-to-list 'package-archives
-    '("marmalade" . "http://marmalade-repo.org/packages/"))
+	     '("marmalade" . "http://marmalade-repo.org/packages/"))
 (package-initialize)
 (add-to-list 'package-archives
-  '("melpa" . "http://melpa.milkbox.net/packages/") t)
+	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
 (package-refresh-contents)
 
@@ -15,8 +15,9 @@
        (if (y-or-n-p (format "Package %s is missing. Install it? " package))
 	   (package-install package))))
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
-   flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
-   yaml-mode ace-jump-mode expand-region nginx-mode apache-mode flymake-python-pyflakes))
+	  flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
+	  yaml-mode ace-jump-mode expand-region nginx-mode apache-mode flymake-python-pyflakes
+	  twittering-mode multiple-cursors))
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -76,7 +77,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
 
     (when (buffer-modified-p)
       (when (y-or-n-p "Buffer modified. Do you want to save first?")
-	  (save-buffer) ) )
+	(save-buffer) ) )
 
     (if (string-equal fSuffix "el") ; special case for emacs lisp
 	(load (file-name-sans-extension fName))
@@ -158,13 +159,13 @@ If the file is emacs lisp, run the byte compiled version if exist."
 (when (load "flymake" t)
   (defun flymake-pyflakes-init ()
     (let* ((temp-file (flymake-init-create-temp-buffer-copy
-	       'flymake-create-temp-inplace))
-       (local-file (file-relative-name
-	    temp-file
-	    (file-name-directory buffer-file-name))))
+		       'flymake-create-temp-inplace))
+	   (local-file (file-relative-name
+			temp-file
+			(file-name-directory buffer-file-name))))
       (list "pycheckers"  (list local-file))))
-   (add-to-list 'flymake-allowed-file-name-masks
-	     '("\\.py\\'" flymake-pyflakes-init)))
+  (add-to-list 'flymake-allowed-file-name-masks
+	       '("\\.py\\'" flymake-pyflakes-init)))
 
 
 
@@ -222,3 +223,69 @@ If the file is emacs lisp, run the byte compiled version if exist."
 
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
+
+(defun cleanup-buffer-safe ()
+  "Perform a bunch of safe operations on the whitespace content of a buffer.
+Does not indent buffer, because it is used for a before-save-hook, and that
+might be bad."
+  (interactive)
+  (untabify (point-min) (point-max))
+  (delete-trailing-whitespace)
+  (set-buffer-file-coding-system 'utf-8))
+
+;; Various superfluous white-space. Just say no.
+(add-hook 'before-save-hook 'cleanup-buffer-safe)
+
+(defun cleanup-buffer ()
+  "Perform a bunch of operations on the whitespace content of a buffer.
+Including indent-buffer, which should not be called automatically on save."
+  (interactive)
+  (cleanup-buffer-safe)
+  (indent-region (point-min) (point-max)))
+
+(global-set-key (kbd "C-c n") 'cleanup-buffer)
+
+(defun move-line-down ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines 1))
+    (forward-line)
+    (move-to-column col)))
+
+(defun move-line-up ()
+  (interactive)
+  (let ((col (current-column)))
+    (save-excursion
+      (forward-line)
+      (transpose-lines -1))
+    (move-to-column col)))
+
+(global-set-key (kbd "<C-S-up>") 'move-line-up)
+(global-set-key (kbd "<C-S-down>") 'move-line-down)
+
+
+;; Auto refresh buffers
+(global-auto-revert-mode 1)
+
+;; Also auto refresh dired, but be quiet about it
+(setq global-auto-revert-non-file-buffers t)
+(setq auto-revert-verbose nil)
+
+;; show line numbers in the side bar
+(linum-mode -1)
+
+;; dansysadm: Test message from within emacs
+;; sengork:   @dansysadm finally an OS with a twitter client...
+(require 'twittering-mode)
+
+;; Handy if I can't be bothered regexin'
+(require 'multiple-cursors)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+
+;; magit love
+(global-set-key (kbd "C-c z") 'magit-status)
