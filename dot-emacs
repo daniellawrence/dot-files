@@ -39,59 +39,6 @@
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 
-(defun run-current-file ()
-  "Execute the current file.
-For example, if the current buffer is the file xx.py,
-then it'll call “python xx.py” in a shell.
-The file can be php, perl, python, ruby, javascript, bash, ocaml, vb, elisp.
-File suffix is used to determine what program to run.
-
-If the file is modified, ask if you want to save first.
-
-If the file is emacs lisp, run the byte compiled version if exist."
-  (interactive)
-  (let* (
-	 (suffixMap
-	  `(
-	    ("bash" . "bash")
-	    ("zsh" . "bash")
-	    ("ksh" . "bash")
-	    ("sh" . "bash")
-	    ("php" . "php")
-	    ("pl" . "perl")
-	    ("py" . "python")
-	    ("py3" . ,(if (string-equal system-type "windows-nt") "c:/Python32/python.exe" "python3"))
-	    ("rb" . "ruby")
-	    ("js" . "node")             ; node.js
-	    ("sh" . "bash")
-	    ("ml" . "ocaml")
-	    ("vbs" . "cscript")
-	    )
-	  )
-	 (fName (buffer-file-name))
-	 (fSuffix (file-name-extension fName))
-	 ;;(progName (cdr (assoc fSuffix suffixMap)))
-	 (progName "exec")
-	 (cmdStr (concat progName " \""   fName "\""))
-	 )
-
-    (when (buffer-modified-p)
-      (when (y-or-n-p "Buffer modified. Do you want to save first?")
-	  (save-buffer) ) )
-	(save-buffer) ) )
-
-    (if (string-equal fSuffix "el") ; special case for emacs lisp
-	(load (file-name-sans-extension fName))
-      (if progName
-	  (progn
-	    (message "Running…")
-	    (shell-command cmdStr "*run-current-file output*" )
-	    )
-	(message "No recognized program file suffix for this file.")
-	) ) ))
-
-(global-set-key (kbd "<f8>") 'run-current-file)
-
 
 (setq x-select-enable-clipboard t)
 
@@ -166,9 +113,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
       (list "pycheckers"  (list local-file))))
   (add-to-list 'flymake-allowed-file-name-masks
 	       '("\\.py\\'" flymake-pyflakes-init)))
->>>>>>> 3b7ddeb9def5e26ceafc4f687c4afd5de03ba9ab
-
-
 
 ;; (add-to-list 'load-path "/path/to/py-autopep8.el/")
 ;; (require 'py-autopep8)
@@ -186,9 +130,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
 
 ;; Don't show the startup screen
 (setq inhibit-startup-message t)
-
-;; "y or n" instead of "yes or no"
-(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; Display line and column numbers
 (setq line-number-mode    t)
