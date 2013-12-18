@@ -1,4 +1,4 @@
-					; INSTALL THE maralade package repo.:
+;; INSTALL THE maralade package repo.:
 (require 'package)
 (add-to-list 'package-archives
 	     '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -6,7 +6,7 @@
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
-(package-refresh-contents)
+ (package-refresh-contents)
 
 ;; check if the packages is installed; if not, install it.
 (mapc
@@ -121,8 +121,7 @@ If the file is emacs lisp, run the byte compiled version if exist."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (flatland)))
- '(custom-safe-themes (quote ("86f4407f65d848ccdbbbf7384de75ba320d26ccecd719d50239f2c36bec18628" "15adb1c26eee48cbb677c67d1486a4db5c97e3cfffd1c3a4a4fc9651bcfbc5b1" "6e05b0a83b83b5efd63c74698e1ad6feaddf69a50b15a8b4a83b157aac45127c" "fe243221e262fe5144e89bb5025e7848cd9fb857ff5b2d8447d115e58fede8f7" default)))
- '(custom-safe-themes (quote ("520d9a34832bb467bcaec55b3b1d15cacf5d62a9779dedce23046f039930a418" "15adb1c26eee48cbb677c67d1486a4db5c97e3cfffd1c3a4a4fc9651bcfbc5b1" "6e05b0a83b83b5efd63c74698e1ad6feaddf69a50b15a8b4a83b157aac45127c" "fe243221e262fe5144e89bb5025e7848cd9fb857ff5b2d8447d115e58fede8f7" default)))
+ '(custom-safe-themes (quote ("86f4407f65d848ccdbbbf7384de75ba320d26ccecd719d50239f2c36bec18628" "520d9a34832bb467bcaec55b3b1d15cacf5d62a9779dedce23046f039930a418" "15adb1c26eee48cbb677c67d1486a4db5c97e3cfffd1c3a4a4fc9651bcfbc5b1" "6e05b0a83b83b5efd63c74698e1ad6feaddf69a50b15a8b4a83b157aac45127c" "fe243221e262fe5144e89bb5025e7848cd9fb857ff5b2d8447d115e58fede8f7" default)))
  '(inhibit-startup-screen t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -207,13 +206,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
 ;; Explicitly show the end of a buffer
 (set-default 'indicate-empty-lines t)
 
-;; Trailing whitespace is unnecessary
-(defvar whitespace-cleanup-on-save t)
-;; (setq whitespace-cleanup-on-save nil)
-(add-hook 'before-save-hook
-	  (lambda ()
-	    (if whitespace-cleanup-on-save (whitespace-cleanup))))
-
 ;;
 (require 'flymake-python-pyflakes)
 (setq flymake-python-pyflakes-executable "flake8")
@@ -223,18 +215,6 @@ If the file is emacs lisp, run the byte compiled version if exist."
 
 (add-hook 'python-mode-hook 'jedi:setup)
 (add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
-
-(defun cleanup-buffer-safe ()
-  "Perform a bunch of safe operations on the whitespace content of a buffer.
-Does not indent buffer, because it is used for a before-save-hook, and that
-might be bad."
-  (interactive)
-  (untabify (point-min) (point-max))
-  (delete-trailing-whitespace)
-  (set-buffer-file-coding-system 'utf-8))
-
-;; Various superfluous white-space. Just say no.
-(add-hook 'before-save-hook 'cleanup-buffer-safe)
 
 (defun cleanup-buffer ()
   "Perform a bunch of operations on the whitespace content of a buffer.
@@ -283,9 +263,9 @@ Including indent-buffer, which should not be called automatically on save."
 ;; Handy if I can't be bothered regexin'
 (require 'multiple-cursors)
 (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 (global-set-key (kbd "C->") 'mc/mark-next-like-this)
 (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 
 ;; magit love
 (global-set-key (kbd "C-c z") 'magit-status)
