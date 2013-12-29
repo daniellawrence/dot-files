@@ -17,7 +17,7 @@
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
 	  flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
 	  yaml-mode ace-jump-mode expand-region nginx-mode apache-mode flymake-python-pyflakes
-	  twittering-mode multiple-cursors))
+	  twittering-mode multiple-cursors yasnippet browse-kill-ring))
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -119,7 +119,7 @@
 ;; (add-hook 'before-save-hook 'python-fmt-before-save)
 
 
-;; yaml mode for yaml files
+;; yaml mode for aml files
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
@@ -234,3 +234,27 @@ Including indent-buffer, which should not be called automatically on save."
   "Start Bongo by switching to a Bongo buffer." t)
 
 
+(defun eval-region-or-buffer ()
+  (interactive)
+  (let ((debug-on-error t))
+    (cond
+     (mark-active
+      (call-interactively 'eval-region)
+      (message "Region evaluated!")
+      (setq deactivate-mark t))
+     (t
+      (eval-buffer)
+      (message "Buffer evaluated!")))))
+
+(add-hook 'emacs-lisp-mode-hook
+	  (lambda ()
+	    (local-set-key (kbd "C-x w") 'eval-region-or-buffer)))
+
+(add-to-list 'load-path
+	      "~/.emacs.d/snippets")
+(require 'yasnippet)
+(yas-global-mode 1)
+(show-paren-mode 1)
+
+;; kill ring (C&P buffer)
+(global-set-key (kbd "C-c k") 'browse-kill-ring)
