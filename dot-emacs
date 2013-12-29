@@ -218,3 +218,19 @@ Including indent-buffer, which should not be called automatically on save."
 
 ;; magit love
 (global-set-key (kbd "C-c z") 'magit-status)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Need to git-clone a few things to get this working
+;; TODO: Work out how to get emacs to clone on startup.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; volume control for emacs - Fuck this is awesome
+(autoload 'volume "volume"
+     "Tweak your sound card volume." t)
+
+;; VLC controll for emacs - Legen...Wait for it...Dary 
+(add-to-list 'load-path "~/.emacs.d/bongo")
+(autoload 'bongo "bongo"
+  "Start Bongo by switching to a Bongo buffer." t)
+
+
