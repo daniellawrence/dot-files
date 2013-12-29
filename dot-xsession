@@ -1,0 +1,4 @@
+# Remap CL -> C
+if [ -f ~/.xmodmap ];then
+   xmodmap ~/.xmodmap
+fi
