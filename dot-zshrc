@@ -71,6 +71,38 @@ if [ -f /usr/local/bin/virtualenvwrapper_lazy.sh ];then
 	source /usr/local/bin/virtualenvwrapper_lazy.sh
 fi
 
+
+# added by travis gem
+source /home/dlawrence/.travis/travis.sh
+
+alias 'git lola'='log --graph --decorate --pretty=oneline --abbrev-commit --all'
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+alias vim='emacsclient -tty'
+alias vi='emacsclient -tty'
+
+export PATH="/usr/local/rbenv/shims:${PATH}"
+source "/usr/lib/rbenv/libexec/../completions/rbenv.zsh"
+rbenv rehash 2>/dev/null
+rbenv() {
+  command="$1"
+  if [ "$#" -gt 0 ]; then
+    shift
+  fi
+
+  case "$command" in
+  shell)
+    eval `rbenv "sh-$command" "$@"`;;
+  *)
+    command rbenv "$command" "$@";;
+  esac
+}
+
+# Local AWS configuration
+if [ -f ~/.aws ];then
+source ~/.aws
+fi
+
 alias vi='emacsclient -t'
 alias vim='emacsclient -t'
-

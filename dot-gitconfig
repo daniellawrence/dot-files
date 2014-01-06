@@ -2,9 +2,10 @@
 	email = dannyla@linux.com
 	name = Daniel Lawrence
 [push]
-	default = simple
+	default = current
 [core]
 	editor = emacsclient
+	excludesfile = /home/dlawrence/.gitignore
 
 [alias]
         lol = log --graph --decorate --pretty=oneline --abbrev-commit
@@ -14,4 +15,3 @@
         diff = auto
         interactive = auto
         status = auto
-

@@ -5,9 +5,9 @@ CONFDIR=~/.config/awesome
 # --------------------------------------------------
 # Download and install:: awesome3.5
 # --------------------------------------------------
-# source libfunc
-# install_ppa ppa:aguigard/ppa
-# install_package awesome awesome-extra xbacklight
+source libfunc
+install_ppa ppa:aguignard/ppa
+install_package awesome awesome-extra xbacklight
 
 mkdir -p ${CONFDIR}
 
