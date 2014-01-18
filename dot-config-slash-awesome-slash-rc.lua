@@ -80,7 +80,8 @@ active_theme = themes .. "/multicolor"
 -- Themes define colours, icons, and wallpapers
 beautiful.init(active_theme .. "/theme.lua")
 
-terminal = '/usr/bin/terminator'
+-- terminal = '/usr/bin/terminator'
+terminal = '/usr/bin/gnome-terminal'
 
 editor = os.getenv("EDITOR")
 editor = 'emacsclient'
