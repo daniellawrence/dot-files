@@ -6,7 +6,7 @@
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
- (package-refresh-contents)
+;;(package-refresh-contents)
 
 ;; check if the packages is installed; if not, install it.
 (mapc
@@ -83,6 +83,7 @@
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
 
 ;; Editing files on remote machines
+(require 'tramp)
 (setq tramp-default-method "ssh")
 
 ;;
@@ -269,4 +270,6 @@ Including indent-buffer, which should not be called automatically on save."
 ;; I Too Like to Live Dangerously
 (setq confluence-xml-convert-to-wiki-on-load t)
 
-
+;; allow for buffer narrowing
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
