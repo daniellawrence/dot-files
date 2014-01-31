@@ -1,6 +1,7 @@
 [user]
 	email = dannyla@linux.com
 	name = Daniel Lawrence
+	signingkey = EDFA4A6B
 [push]
 	default = current
 [core]
