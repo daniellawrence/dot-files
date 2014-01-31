@@ -1,0 +1,6 @@
+# Remap CL -> C
+if [ -f ~/.xmodmap ];then
+   xmodmap ~/.xmodmap
+fi
+eval `/usr/bin/gnome-keyring-daemon` &
+exec awesome -c ~/.config/awesome/rc.lua
