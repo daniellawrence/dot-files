@@ -81,6 +81,7 @@
 ;; Puppet
 (require 'puppetfile-mode)
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
+(add-hook 'puppetfile-mode 'flymake-puppet-load)
 
 ;; Editing files on remote machines
 (require 'tramp)
