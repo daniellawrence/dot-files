@@ -6,7 +6,6 @@
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
-;;(package-refresh-contents)
 
 ;; check if the packages is installed; if not, install it.
 (mapc
