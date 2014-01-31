@@ -34,4 +34,3 @@ export GOROOT=/usr/local/go
 # Make sure the dot files are all in sync
 (cd ~/github/dot-files && git fetch &)
 
-gnome-keyring-daemon
