@@ -16,7 +16,10 @@
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
 	  flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
 	  yaml-mode ace-jump-mode  nginx-mode apache-mode flymake-python-pyflakes
-	  twittering-mode multiple-cursors yasnippet confluence browse-kill-ring python-mode))
+	  twittering-mode multiple-cursors yasnippet confluence browse-kill-ring python-mode yasnippet))
+
+;;
+(require 'yasnippet)
 
 ;; Enable evil for vim bindings
 (require 'evil)
