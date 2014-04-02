@@ -150,3 +150,16 @@ rbenv() {
     command rbenv "$command" "$@";;
   esac
 }
+
+# If we do not have a gpg-agent info file,
+# We need to create one..
+if [ ! -f "/tmp/.gpg-agent-info-$(whoami)" ]; then
+    gpg-agent --daemon --enable-ssh-support --write-env-file "/tmp/.gpg-agent-info-$(whoami)"
+fi
+
+# Now we know its created -- Its time to load it.
+. "/tmp/.gpg-agent-info-$(whoami)"
+export GPG_AGENT_INFO
+export SSH_AUTH_SOCK
+GPG_TTY=$(tty)
+export GPG_TTY
