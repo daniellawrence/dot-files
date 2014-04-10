@@ -17,7 +17,8 @@ antigen bundle lein
 antigen bundle command-not-found
 
 # python love
-antigen bundle sharat87/autoenv
+#antigen bundle sharat87/autoenv
+antigen bundle kennethreitz/autoenv
 
 # Syntax highlighting bundle.
 antigen bundle zsh-users/zsh-syntax-highlighting
