@@ -48,6 +48,8 @@
 
 
 (add-to-list 'load-path "~/.emacs.d/")
+(require 'puppet-ext)
+
 
 
 ;; Helm
@@ -326,3 +328,11 @@ Including indent-buffer, which should not be called automatically on save."
 
      ;;(global-set-key (kbd "C-c o") 'sudo-find-file)
      (global-set-key (kbd "C-c o s") 'sudo-reopen-file)))
+
+;; Prevent the cursor from blinking
+(blink-cursor-mode 0)
+;; Don't use messages that you don't read
+(setq initial-scratch-message "")
+(setq inhibit-startup-message t)
+;; Don't let Emacs hurt your ears
+(setq visible-bell t)
