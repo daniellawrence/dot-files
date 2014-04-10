@@ -270,7 +270,7 @@ Including indent-buffer, which should not be called automatically on save."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(custom-enabled-themes (quote (flatland)))
- '(custom-safe-themes (quote ("520d9a34832bb467bcaec55b3b1d15cacf5d62a9779dedce23046f039930a418" default))))
+ '(custom-safe-themes (quote ("86f4407f65d848ccdbbbf7384de75ba320d26ccecd719d50239f2c36bec18628" "520d9a34832bb467bcaec55b3b1d15cacf5d62a9779dedce23046f039930a418" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -281,17 +281,7 @@ Including indent-buffer, which should not be called automatically on save."
 ;; Show the battery in the command bar
 (display-battery-mode 1)
 
-(defun clone-buffer-and-narrow-to-function ()
-  (interactive)
-  (clone-indirect-buffer-other-window (which-func) 'pop-to-buffer)
-  (mark-defun) ; works not only in emacs-lisp, but C++, Python, ...
-  (narrow-to-region (mark) (point))
-  (pop-mark)
-  (other-window 1))
-(define-key global-map (kbd "C-x 4 n") 'clone-buffer-and-narrow-to-function) ; or whatever key you prefer
-
-;; TRAMP -- http://www.emacswiki.org/emacs/TrampMode
-;; This allows me to edit remote as root via sudo -- MAGIC!
+;; TRAMP + sudo  = <3
 (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
 (eval-after-load "tramp"
   '(progn
@@ -335,4 +325,4 @@ Including indent-buffer, which should not be called automatically on save."
            (message (concat "File name set to " sudo-name)))))
 
      ;;(global-set-key (kbd "C-c o") 'sudo-find-file)
-     (global-set-key (kbd "C-c o s") 'sudo-reopen-file))
+     (global-set-key (kbd "C-c o s") 'sudo-reopen-file)))
