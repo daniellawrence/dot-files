@@ -55,7 +55,6 @@
 (require 'helm-flymake)
 (global-set-key (kbd "C-c h") 'helm-mini)
 (helm-mode 1)
-(require 'helm-flymake)
 
 ;; Disable all the fricken menu bars...
 (menu-bar-mode -1)
@@ -73,11 +72,12 @@
 ;; Editing files on remote machines
 (require 'tramp)
 (setq tramp-default-method "ssh")
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
 ;;
 (require 'flyspell-lazy)
 (flyspell-lazy-mode 0)
-(flyspell-mode 0)
+(flyspell-mode 1)
 
 
 ;;
@@ -280,3 +280,59 @@ Including indent-buffer, which should not be called automatically on save."
 
 ;; Show the battery in the command bar
 (display-battery-mode 1)
+
+(defun clone-buffer-and-narrow-to-function ()
+  (interactive)
+  (clone-indirect-buffer-other-window (which-func) 'pop-to-buffer)
+  (mark-defun) ; works not only in emacs-lisp, but C++, Python, ...
+  (narrow-to-region (mark) (point))
+  (pop-mark)
+  (other-window 1))
+(define-key global-map (kbd "C-x 4 n") 'clone-buffer-and-narrow-to-function) ; or whatever key you prefer
+
+;; TRAMP -- http://www.emacswiki.org/emacs/TrampMode
+;; This allows me to edit remote as root via sudo -- MAGIC!
+(set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
+(eval-after-load "tramp"
+  '(progn
+     (defvar sudo-tramp-prefix 
+       "/sudo:" 
+       (concat "Prefix to be used by sudo commands when building tramp path "))
+     (defun sudo-file-name (filename)
+       (set 'splitname (split-string filename ":"))
+       (if (> (length splitname) 1)
+         (progn (set 'final-split (cdr splitname))
+                (set 'sudo-tramp-prefix "/sudo:")
+                )
+         (progn (set 'final-split splitname)
+                (set 'sudo-tramp-prefix (concat sudo-tramp-prefix "root@localhost:")))
+         )
+       (set 'final-fn (concat sudo-tramp-prefix (mapconcat (lambda (e) e) final-split ":")))
+       (message "splitname is %s" splitname)
+       (message "sudo-tramp-prefix is %s" sudo-tramp-prefix)
+       (message "final-split is %s" final-split)
+       (message "final-fn is %s" final-fn)
+       (message "%s" final-fn)
+       )
+
+     (defun sudo-find-file (filename &optional wildcards)
+       "Calls find-file with filename with sudo-tramp-prefix prepended"
+       (interactive "fFind file with sudo ")      
+       (let ((sudo-name (sudo-file-name filename)))
+         (apply 'find-file 
+                (cons sudo-name (if (boundp 'wildcards) '(wildcards))))))
+
+     (defun sudo-reopen-file ()
+       "Reopen file as root by prefixing its name with sudo-tramp-prefix and by clearing buffer-read-only"
+       (interactive)
+       (let* 
+           ((file-name (expand-file-name buffer-file-name))
+            (sudo-name (sudo-file-name file-name)))
+         (progn           
+           (setq buffer-file-name sudo-name)
+           (rename-buffer sudo-name)
+           (setq buffer-read-only nil)
+           (message (concat "File name set to " sudo-name)))))
+
+     ;;(global-set-key (kbd "C-c o") 'sudo-find-file)
+     (global-set-key (kbd "C-c o s") 'sudo-reopen-file))
