@@ -6,7 +6,6 @@
 (add-to-list 'package-archives
 	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
 (package-initialize)
- (package-refresh-contents)
 
 ;; check if the packages is installed; if not, install it.
 (mapc
@@ -16,8 +15,11 @@
 	   (package-install package))))
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
 	  flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
-	  yaml-mode ace-jump-mode expand-region nginx-mode apache-mode flymake-python-pyflakes
-	  twittering-mode multiple-cursors yasnippet confluence browse-kill-ring))
+	  yaml-mode ace-jump-mode  nginx-mode apache-mode flymake-python-pyflakes
+	  twittering-mode multiple-cursors confluence browse-kill-ring python-mode))
+
+;;
+;;(require 'yasnippet)
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -63,26 +65,13 @@
 ;; Load custom themes from ~/.emacs.d/themes
 (add-to-list 'custom-theme-load-path "~/.emacs.d/themes/")
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(custom-enabled-themes (quote (flatland)))
- '(custom-safe-themes (quote ("86f4407f65d848ccdbbbf7384de75ba320d26ccecd719d50239f2c36bec18628" "520d9a34832bb467bcaec55b3b1d15cacf5d62a9779dedce23046f039930a418" "15adb1c26eee48cbb677c67d1486a4db5c97e3cfffd1c3a4a4fc9651bcfbc5b1" "6e05b0a83b83b5efd63c74698e1ad6feaddf69a50b15a8b4a83b157aac45127c" "fe243221e262fe5144e89bb5025e7848cd9fb857ff5b2d8447d115e58fede8f7" default)))
- '(inhibit-startup-screen t))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
-
 ;; Puppet
 (require 'puppetfile-mode)
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
+(add-hook 'puppetfile-mode 'flymake-puppet-load)
 
 ;; Editing files on remote machines
+(require 'tramp)
 (setq tramp-default-method "ssh")
 
 ;;
@@ -123,10 +112,6 @@
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
 (add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-
-;; cool expand region/secltion via C-=
-(require 'expand-region)
-(global-set-key (kbd "C-=") 'er/expand-region)
 
 ;; Don't show the startup screen
 (setq inhibit-startup-message t)
@@ -252,9 +237,9 @@ Including indent-buffer, which should not be called automatically on save."
 
 (add-to-list 'load-path
 	      "~/.emacs.d/snippets")
-(require 'yasnippet)
-(yas-global-mode 1)
-(show-paren-mode 1)
+;; (require 'yasnippet)
+;; (yas-global-mode 1)
+;;(show-paren-mode 1)
 
 ;; kill ring (C&P buffer)
 (global-set-key (kbd "C-c k") 'browse-kill-ring)
@@ -270,4 +255,28 @@ Including indent-buffer, which should not be called automatically on save."
 (global-set-key (kbd "C-c w") 'cfln-convert-xml-to-wiki)
 (global-set-key (kbd "C-c W") 'cfln-convert-wiki-to-xml)
 
+;; I Too Like to Live Dangerously
 (setq confluence-xml-convert-to-wiki-on-load t)
+
+;; allow for buffer narrowing
+(put 'narrow-to-region 'disabled nil)
+(put 'narrow-to-page 'disabled nil)
+
+(require 'epa-file)
+(epa-file-enable)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(custom-enabled-themes (quote (flatland)))
+ '(custom-safe-themes (quote ("520d9a34832bb467bcaec55b3b1d15cacf5d62a9779dedce23046f039930a418" default))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
+
+;; Show the battery in the command bar
+(display-battery-mode 1)

@@ -1,10 +1,12 @@
 [user]
 	email = dannyla@linux.com
 	name = Daniel Lawrence
+	signingkey = EDFA4A6B
 [push]
-	default = simple
+	default = current
 [core]
 	editor = emacsclient
+	excludesfile = /home/dlawrence/.gitignore
 
 [alias]
         lol = log --graph --decorate --pretty=oneline --abbrev-commit
@@ -14,4 +16,7 @@
         diff = auto
         interactive = auto
         status = auto
-
+[http]
+	sslVerify = false
+[credential]
+	helper = /usr/share/doc/git/contrib/credential/gnome-keyring/git-credential-gnome-keyring

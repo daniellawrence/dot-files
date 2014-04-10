@@ -72,6 +72,61 @@ if [ -f /usr/local/bin/virtualenvwrapper_lazy.sh ];then
 	source /usr/local/bin/virtualenvwrapper_lazy.sh
 fi
 
+
+# added by travis gem
+#source /home/dlawrence/.travis/travis.sh
+
+alias 'git lola'='log --graph --decorate --pretty=oneline --abbrev-commit --all'
+
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+
+alias vim='emacsclient -tty'
+alias vi='emacsclient -tty'
+
+export PATH="/usr/local/rbenv/shims:${PATH}"
+#source "/usr/lib/rbenv/libexec/../completions/rbenv.zsh"
+#rbenv rehash 2>/dev/null
+#rbenv() {
+#  command="$1"
+#  if [ "$#" -gt 0 ]; then
+#    shift
+#  fi
+#
+##  case "$command" in
+#  shell)
+###    eval `rbenv "sh-$command" "$@"`;;
+#  *)
+#    command rbenv "$command" "$@";;
+#  esac
+#}
+#
+# Local AWS configuration
+if [ -f ~/.aws ];then
+source ~/.aws
+fi
+
 alias vi='emacsclient -t'
 alias vim='emacsclient -t'
 
+# use my local pip cache vi devpi
+export PIP_INDEX_URL=http://localhost:3141/$USER/all/+simple/
+
+# $ devpi-server --start
+# $ devpi use http://localhost:3141
+# $ devpi user -c $USER password=
+# $ devpi login $USER --password=
+# $ devpi index -c yourproject
+
+
+# If we do not have a gpg-agent info file,
+# We need to create one..
+if [ ! -f "/tmp/.gpg-agent-info-$(whoami)" ]; then
+    gpg-agent --daemon --enable-ssh-support --write-env-file "/tmp/.gpg-agent-info-$(whoami)"
+fi
+
+# Now we know its created -- Its time to load it.
+. "/tmp/.gpg-agent-info-$(whoami)"
+export GPG_AGENT_INFO
+export SSH_AUTH_SOCK
+GPG_TTY=$(tty)
+export GPG_TTY

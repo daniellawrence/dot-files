@@ -34,11 +34,10 @@ export GOROOT=/usr/local/go
 # Make sure the dot files are all in sync
 (cd ~/github/dot-files && git fetch &)
 
-gnome-keyring-daemon
-
-# Load all the private keys
-cd ~/.ssh
-for i in ls id* |grep -v pub
- do
- ssh-add $i
-done
+# Disable power
+if [[ "$(hostname)" == "xps13z" ]];then
+	echo "Oh laptop -- turn on the powersavinges for speakers"
+	echo 1 | sudo tee /sys/module/snd_hda_intel/parameters/power_save
+	echo Y | sudo tee /sys/module/snd_hda_intel/parameters/power_save_controller
+	pkill pulseaudio
+fi
