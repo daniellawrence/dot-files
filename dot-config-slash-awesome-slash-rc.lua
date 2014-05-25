@@ -418,9 +418,9 @@ vicious.register(batwidget, vicious.widgets.bat,
           -- plugged
           if (batstate() == 'Cable plugged') then return "AC "
           -- critical
-          elseif (args[2] <= 5 and batstate() == 'Discharging') then
+          elseif (args[2] <= 10 and batstate() == 'Discharging') then
                naughty.notify({
-                    text = "Battery < 5 %",
+                    text = "Battery < 10 %",
                     title = "Srly. Plug yo shit in",
                     position = "top_right",
                     timeout = 1,
@@ -430,9 +430,9 @@ vicious.register(batwidget, vicious.widgets.bat,
                     ontop = true,
                })
           -- low
-          elseif (args[2] <= 10 and batstate() == 'Discharging') then
+          elseif (args[2] <= 20 and batstate() == 'Discharging') then
                naughty.notify({
-                    text = "Battery < 10 %",
+                    text = "Battery < 20 %",
                     title = "Plug yo shit in",
                     position = "top_right",
                     timeout = 1,
