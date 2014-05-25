@@ -120,13 +120,13 @@ export PIP_INDEX_URL=http://localhost:3141/$USER/all/+simple/
 
 # If we do not have a gpg-agent info file,
 # We need to create one..
-if [ ! -f "/tmp/.gpg-agent-info-$(whoami)" ]; then
-    gpg-agent --daemon --enable-ssh-support --write-env-file "/tmp/.gpg-agent-info-$(whoami)"
-fi
+#if [ ! -f "/tmp/.gpg-agent-info-$(whoami)" ]; then
+#    gpg-agent --daemon --write-env-file "/tmp/.gpg-agent-info-$(whoami)"
+#fi
 
 # Now we know its created -- Its time to load it.
-. "/tmp/.gpg-agent-info-$(whoami)"
-export GPG_AGENT_INFO
+#. "/tmp/.gpg-agent-info-$(whoami)"
+#export GPG_AGENT_INFO
 export SSH_AUTH_SOCK
-GPG_TTY=$(tty)
-export GPG_TTY
+#GPG_TTY=$(tty)
+#export GPG_TTY

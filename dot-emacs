@@ -336,3 +336,9 @@ Including indent-buffer, which should not be called automatically on save."
 (setq inhibit-startup-message t)
 ;; Don't let Emacs hurt your ears
 (setq visible-bell t)
+
+;; after copy Ctrl+c in X11 apps, you can paste by `yank' in emacs
+(setq x-select-enable-clipboard t)
+
+;; after mouse selection in X11, you can paste by `yank' in emacs
+(setq x-select-enable-primary t)
