@@ -267,13 +267,18 @@ Including indent-buffer, which should not be called automatically on save."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(ansi-color-names-vector ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
+ '(ansi-color-names-vector ["#272822" "#F92672" "#A6E22E" "#E6DB74" "#66D9EF" "#FD5FF0" "#A1EFE4" "#F8F8F2"])
  '(custom-enabled-themes (quote (flatland)))
  '(custom-safe-themes (quote ("42ac06835f95bc0a734c21c61aeca4286ddd881793364b4e9bc2e7bb8b6cf848" "86f4407f65d848ccdbbbf7384de75ba320d26ccecd719d50239f2c36bec18628" "520d9a34832bb467bcaec55b3b1d15cacf5d62a9779dedce23046f039930a418" default)))
- '(fci-rule-color "#202325")
- '(vc-annotate-background "#1f2124")
- '(vc-annotate-color-map (quote ((20 . "#ff0000") (40 . "#ff4a52") (60 . "#f6aa11") (80 . "#f1e94b") (100 . "#f5f080") (120 . "#f6f080") (140 . "#41a83e") (160 . "#40b83e") (180 . "#b6d877") (200 . "#b7d877") (220 . "#b8d977") (240 . "#b9d977") (260 . "#93e0e3") (280 . "#72aaca") (300 . "#8996a8") (320 . "#afc4db") (340 . "#cfe2f2") (360 . "#dc8cc3"))))
- '(vc-annotate-very-old-color "#dc8cc3"))
+ '(elfeed-feeds (quote (
+ 		"http://www.debian.org/security/dsa"
+		"http://aws.amazon.com/rss/amazon-linux-ami.rss"
+		"http://rss.slashdot.org/Slashdot/slashdot"
+							     )))
+ '(fci-rule-color "#49483E")
+ '(vc-annotate-background nil)
+ '(vc-annotate-color-map (quote ((20 . "#F92672") (40 . "#CF4F1F") (60 . "#C26C0F") (80 . "#E6DB74") (100 . "#AB8C00") (120 . "#A18F00") (140 . "#989200") (160 . "#8E9500") (180 . "#A6E22E") (200 . "#729A1E") (220 . "#609C3C") (240 . "#4E9D5B") (260 . "#3C9F79") (280 . "#A1EFE4") (300 . "#299BA6") (320 . "#2896B5") (340 . "#2790C3") (360 . "#66D9EF"))))
+ '(vc-annotate-very-old-color nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
