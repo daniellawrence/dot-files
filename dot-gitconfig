@@ -4,6 +4,8 @@
 	signingkey = EDFA4A6B
 [push]
 	default = current
+[pull]
+	default = current
 [core]
 	editor = emacsclient
 	excludesfile = /home/dlawrence/.gitignore
