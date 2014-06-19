@@ -343,3 +343,6 @@ Including indent-buffer, which should not be called automatically on save."
 (setq ac-ignore-case nil)
 (add-to-list 'ac-modes 'enh-ruby-mode)
 (add-to-list 'ac-modes 'web-mode)
+
+(require 'go-autocomplete)
+(require 'auto-complete-config)
