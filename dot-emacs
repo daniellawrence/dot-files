@@ -14,10 +14,18 @@
        (if (y-or-n-p (format "Package %s is missing. Install it? " package))
 	   (package-install package))))
  '(dired+ magit rainbow-mode jedi helm evil puppet-mode
-	  flymake flymake-puppet flymake-jshint helm-flymake puppetfile-mode flyspell-lazy flatland-theme
-	  yaml-mode ace-jump-mode  nginx-mode apache-mode flymake-python-pyflakes
-	  twittering-mode multiple-cursors confluence browse-kill-ring python-mode
-	  ssh-config-mode yasnippet monokai-theme web-mode project-explorer
+	  flymake
+	  puppetfile-mode flymake-puppet
+	  flymake-jshint helm-flymake
+	  flyspell-lazy
+	  flatland-theme
+	  yaml-mode ace-jump-mode
+	  nginx-mode apache-mode
+	  twittering-mode multiple-cursors confluence browse-kill-ring
+	  python-mode flymake-python-pyflakes
+	  ssh-config-mode yasnippet monokai-theme
+	  web-mode
+	  project-explorer
 	  go-autocomplete
 	  rinari ruby-mode robe enh-ruby-mode
 	  ))
