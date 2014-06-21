@@ -27,7 +27,7 @@
 	  web-mode
 	  project-explorer
 	  go-autocomplete
-	  rinari ruby-mode robe enh-ruby-mode
+	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
 	  ))
 
  
@@ -362,3 +362,8 @@ Including indent-buffer, which should not be called automatically on save."
 	     '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist
 	     '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
+(add-to-list 'auto-mode-alist
+	     '("\\.\\(?:\\.html\\)\\'" . web-mode))
+	     
+(require 'flymake-ruby)
+(add-hook 'ruby-mode-hook 'flymake-ruby-load)
