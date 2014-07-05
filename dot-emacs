@@ -27,6 +27,7 @@
 	  project-explorer
 	  go-autocomplete
 	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
+	  markdown-mode
 	  ))
 
  
@@ -60,7 +61,7 @@
 
 
 (add-to-list 'load-path "~/.emacs.d/")
-(require 'puppet-ext)
+;; (require 'puppet-ext)
 
 
 
