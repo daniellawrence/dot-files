@@ -25,7 +25,7 @@
 	  ssh-config-mode yasnippet monokai-theme
 	  web-mode
 	  project-explorer
-	  go-autocomplete
+	  go-autocomplete go-mode
 	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
 	  markdown-mode
 	  ))
