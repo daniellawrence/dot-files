@@ -367,3 +367,6 @@ Including indent-buffer, which should not be called automatically on save."
 	     
 (require 'flymake-ruby)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
+
+;; shutup erc
+(setq erc-hide-list '("JOIN" "PART" "QUIT"))
