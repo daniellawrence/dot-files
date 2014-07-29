@@ -33,6 +33,7 @@
  
 ;;
 ;;(require 'yasnippet)
+(require 'cloudformation-mode)
 
 ;; Enable evil for vim bindings
 (require 'evil)
