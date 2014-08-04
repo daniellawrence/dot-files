@@ -340,7 +340,7 @@ Including indent-buffer, which should not be called automatically on save."
 (add-to-list 'auto-mode-alist '("sshd?_config\\'" . ssh-config-mode))
 (add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
 
-(electric-indent-mode 1)
+(electric-indent-mode 0)
 (load-theme 'monokai t)
 
   (when (require 'automargin nil t)
@@ -364,6 +364,8 @@ Including indent-buffer, which should not be called automatically on save."
 	     '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist
 	     '("\\.\\(?:\\.html\\)\\'" . web-mode))
+(add-to-list 'auto-mode-alist
+	     '("\\.\\(?:\\.tmpl\\)\\'" . web-mode))
 	     
 (require 'flymake-ruby)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
