@@ -12,9 +12,9 @@
  (lambda (package)
    (or (package-installed-p package)
 	   (package-install package)))
- '(dired+ magit rainbow-mode jedi helm evil puppet-mode
+ '(dired+ rainbow-mode jedi helm evil
 	  flymake
-	  puppetfile-mode flymake-puppet
+ 	  puppet-mode puppetfile-mode flymake-puppet
 	  flymake-jshint helm-flymake
 	  flyspell-lazy
 	  flatland-theme
@@ -28,6 +28,7 @@
 	  go-autocomplete go-mode
 	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
 	  markdown-mode
+	  git-gutter+ magit
 	  ))
 
  
@@ -76,10 +77,13 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-;; Puppet
+;; Puppetfile
 (require 'puppetfile-mode)
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
-(add-hook 'puppetfile-mode 'flymake-puppet-load)
+
+;; Puppet
+(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+(add-hook 'puppet-mode 'flymake-puppet-load)
 
 ;; Editing files on remote machines
 (require 'tramp)
