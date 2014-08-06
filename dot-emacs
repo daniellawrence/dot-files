@@ -43,6 +43,8 @@
 (require 'nginx-mode)
 (require 'apache-mode)
 
+(require 'cloudformation-mode)
+
 ;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
 ;; --------------------
 ;; Set mark
