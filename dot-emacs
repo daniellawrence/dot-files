@@ -43,6 +43,7 @@
 (require 'nginx-mode)
 (require 'apache-mode)
 
+(add-to-list 'load-path "~/.emacs.d/")
 (require 'cloudformation-mode)
 
 ;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
@@ -63,7 +64,6 @@
 (server-start)
 
 
-(add-to-list 'load-path "~/.emacs.d/")
 ;; (require 'puppet-ext)
 
 
