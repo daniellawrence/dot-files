@@ -1,4 +1,7 @@
-source /etc/profile.d/http_proxy
+if [[ -f /etc/profile.d/http_proxy ]];then
+    source /etc/profile.d/http_proxy
+fi
+    
 # If we do not have antigen installed, then grab it from the github repo
 if [[ ! -d ~/.zsh/antigen ]];then
    mkdir ~/.zsh
@@ -86,8 +89,8 @@ alias 'git lola'='log --graph --decorate --pretty=oneline --abbrev-commit --all'
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 
-alias vim='emacsclient -tty'
-alias vi='emacsclient -tty'
+alias vim='emacsclient -c'
+alias vi='emacsclient -c'
 
 export PATH="/usr/local/rbenv/shims:${PATH}"
 #source "/usr/lib/rbenv/libexec/../completions/rbenv.zsh"
@@ -110,9 +113,6 @@ export PATH="/usr/local/rbenv/shims:${PATH}"
 if [ -f ~/.aws ];then
 source ~/.aws
 fi
-
-alias vi='emacsclient -t'
-alias vim='emacsclient -t'
 
 # use my local pip cache vi devpi
 export PIP_INDEX_URL=http://localhost:3141/$USER/all/+simple/
@@ -147,3 +147,14 @@ fi
 if [ -f /etc/profile.d/http_proxy ];then
    source /etc/profile.d/http_proxy
 fi
+source /usr/local/bin/virtualenvwrapper.sh
+
+export NVM_DIR="/home/m44716/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+source ~/.nvm/nvm.sh
+source /usr/local/bin/virtualenvwrapper.sh
+source ~/.nvm/nvm.sh
+source /usr/local/bin/virtualenvwrapper.sh
+source ~/.nvm/nvm.sh
+
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
