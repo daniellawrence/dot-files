@@ -1,11 +1,12 @@
 ;; INSTALL THE maralade package repo.:
 (require 'package)
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+(package-initialize) ;; You might already have this line
+
 
 ;; check if the packages is installed; if not, install it.
 (mapc
@@ -28,6 +29,9 @@
 	  go-autocomplete go-mode
 	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
 	  markdown-mode dockerfile-mode
+	  jira org-jira
+	  gitlab helm-gitlab
+	  dash dash-functional
 	  ))
 
  
