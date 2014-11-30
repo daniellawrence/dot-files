@@ -169,9 +169,6 @@ fi
 if [ -f /etc/profile.d/http_proxy ];then
    source /etc/profile.d/http_proxy
 fi
-source /usr/local/bin/virtualenvwrapper.sh
-source ~/.nvm/nvm.sh
-source /usr/local/bin/virtualenvwrapper.sh
-source ~/.nvm/nvm.sh
-source /usr/local/bin/virtualenvwrapper.sh
-source ~/.nvm/nvm.sh
+if [ -f ~/.nvm/nvm.sh ];then
+    source ~/.nvm/nvm.sh
+fi
