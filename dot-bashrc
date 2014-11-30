@@ -127,10 +127,15 @@ venv_cd() {
 }
 alias cd="venv_cd"
 export WORKON_HOME=~/Envs
-source /usr/local/bin/virtualenvwrapper.sh
+
+if [ -f /usr/local/bin/virtualenvwrapper.sh ];then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # added by travis gem
-source /home/dlawrence/.travis/travis.sh
+if [ -f ~/.travis/travis.sh ];then
+    source ~/.travis/travis.sh
+fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH="/usr/local/rbenv/shims:${PATH}"
