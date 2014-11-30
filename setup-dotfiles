@@ -18,6 +18,7 @@ do
 	    continue
 	else
 	    echo "Moving ${REAL_DOT_FILE} out of the way"
+	    mkdir -p $(dirname ${REAL_DOT_FILE}
 	    mv ${REAL_DOT_FILE} ${REAL_DOT_FILE}.backup
 	fi
     fi
