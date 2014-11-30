@@ -117,7 +117,6 @@ if ! shopt -oq posix; then
 fi
 
 export ALTERNATE_EDITOR=emacs EDITOR=emacsclient VISUAL=emacsclient
-/usr/bin/zsh
 has_virtualenv() {
     if [ -e .venv ]; then
         workon `cat .venv`
@@ -163,3 +162,16 @@ export GPG_AGENT_INFO
 export SSH_AUTH_SOCK
 GPG_TTY=$(tty)
 export GPG_TTY
+
+if [ -f /usr/local/bin/virtualenvwrapper.sh ];then
+   source /usr/local/bin/virtualenvwrapper.sh
+fi
+if [ -f /etc/profile.d/http_proxy ];then
+   source /etc/profile.d/http_proxy
+fi
+source /usr/local/bin/virtualenvwrapper.sh
+source ~/.nvm/nvm.sh
+source /usr/local/bin/virtualenvwrapper.sh
+source ~/.nvm/nvm.sh
+source /usr/local/bin/virtualenvwrapper.sh
+source ~/.nvm/nvm.sh

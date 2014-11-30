@@ -1,11 +1,12 @@
 ;; INSTALL THE maralade package repo.:
 (require 'package)
-(add-to-list 'package-archives
-	     '("marmalade" . "http://marmalade-repo.org/packages/"))
-(package-initialize)
-(add-to-list 'package-archives
-	     '("melpa" . "http://melpa.milkbox.net/packages/") t)
-(package-initialize)
+(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+
+(package-initialize) ;; You might already have this line
+
 
 ;; check if the packages is installed; if not, install it.
 (mapc
@@ -21,19 +22,23 @@
 	  yaml-mode ace-jump-mode
 	  nginx-mode apache-mode
 	  twittering-mode multiple-cursors confluence browse-kill-ring
-	  python-mode flymake-python-pyflakes
+	  flymake-python-pyflakes
 	  ssh-config-mode yasnippet monokai-theme
 	  web-mode
 	  project-explorer
 	  go-autocomplete go-mode
 	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
-	  markdown-mode
+	  markdown-mode dockerfile-mode
+	  jira org-jira
+	  gitlab helm-gitlab
+	  dash dash-functional
 	  git-gutter+ magit
 	  ))
 
  
 ;;
-;;(require 'yasnippet)
+;;(require 'yasnippelt)
+;;(require 'cloudformation-mode)
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -352,8 +357,6 @@ Including indent-buffer, which should not be called automatically on save."
   (when (require 'automargin nil t)
     (automargin-mode 1))
 
-
-(global-git-gutter+-mode t)
 
 (ac-config-default)
 (setq ac-ignore-case nil)
