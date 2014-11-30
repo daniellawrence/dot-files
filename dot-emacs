@@ -13,9 +13,9 @@
  (lambda (package)
    (or (package-installed-p package)
 	   (package-install package)))
- '(dired+ magit rainbow-mode jedi helm evil puppet-mode
+ '(dired+ rainbow-mode jedi helm evil
 	  flymake
-	  puppetfile-mode flymake-puppet
+ 	  puppet-mode puppetfile-mode flymake-puppet
 	  flymake-jshint helm-flymake
 	  flyspell-lazy
 	  flatland-theme
@@ -32,6 +32,7 @@
 	  jira org-jira
 	  gitlab helm-gitlab
 	  dash dash-functional
+	  git-gutter+ magit
 	  ))
 
  
@@ -46,6 +47,9 @@
 ;; nginx and apache modes
 (require 'nginx-mode)
 (require 'apache-mode)
+
+(add-to-list 'load-path "~/.emacs.d/")
+(require 'cloudformation-mode)
 
 ;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
 ;; --------------------
@@ -65,7 +69,6 @@
 (server-start)
 
 
-(add-to-list 'load-path "~/.emacs.d/")
 ;; (require 'puppet-ext)
 
 
@@ -81,10 +84,13 @@
 (toggle-scroll-bar -1)
 (tool-bar-mode -1)
 
-;; Puppet
+;; Puppetfile
 (require 'puppetfile-mode)
 (add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
-(add-hook 'puppetfile-mode 'flymake-puppet-load)
+
+;; Puppet
+(add-to-list 'auto-mode-alist '("\\.pp$" . puppet-mode))
+(add-hook 'puppet-mode 'flymake-puppet-load)
 
 ;; Editing files on remote machines
 (require 'tramp)
@@ -345,7 +351,7 @@ Including indent-buffer, which should not be called automatically on save."
 (add-to-list 'auto-mode-alist '("sshd?_config\\'" . ssh-config-mode))
 (add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
 
-(electric-indent-mode 1)
+(electric-indent-mode 0)
 (load-theme 'monokai t)
 
   (when (require 'automargin nil t)
@@ -367,6 +373,8 @@ Including indent-buffer, which should not be called automatically on save."
 	     '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
 (add-to-list 'auto-mode-alist
 	     '("\\.\\(?:\\.html\\)\\'" . web-mode))
+(add-to-list 'auto-mode-alist
+	     '("\\.\\(?:\\.tmpl\\)\\'" . web-mode))
 	     
 (require 'flymake-ruby)
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)

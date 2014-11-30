@@ -138,23 +138,24 @@ export SSH_AUTH_SOCK
 #export GPG_TTY
 
 export TERM=xterm-256color
-export GOPATH=~/go
 
-
+# python
 if [ -f /usr/local/bin/virtualenvwrapper.sh ];then
    source /usr/local/bin/virtualenvwrapper.sh
 fi
+
+# nvm
+export NVM_DIR="/home/m44716/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# java
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
+
+# golang
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin/
+
+# proxy
 if [ -f /etc/profile.d/http_proxy ];then
    source /etc/profile.d/http_proxy
 fi
-source /usr/local/bin/virtualenvwrapper.sh
-
-export NVM_DIR="/home/m44716/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-source ~/.nvm/nvm.sh
-source /usr/local/bin/virtualenvwrapper.sh
-source ~/.nvm/nvm.sh
-source /usr/local/bin/virtualenvwrapper.sh
-source ~/.nvm/nvm.sh
-
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
