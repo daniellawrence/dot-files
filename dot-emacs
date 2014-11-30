@@ -377,4 +377,13 @@ Including indent-buffer, which should not be called automatically on save."
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
 ;; shutup erc
+
+
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
+(load-file "/home/dannyla/.emacs.d/pycoverage/pycov2.el")
+(require 'linum)
+(require 'pycov2)
+(add-hook 'python-mode-hook
+(function (lambda ()
+(pycov2-mode)
+(linum-mode))))
