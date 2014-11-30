@@ -387,3 +387,6 @@ Including indent-buffer, which should not be called automatically on save."
 (function (lambda ()
 (pycov2-mode)
 (linum-mode))))
+
+;; quick open shell
+(global-set-key [f1] 'ansi-term)

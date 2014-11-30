@@ -164,3 +164,13 @@ export ANDROID_HOME=/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702
 if [ -f /etc/profile.d/http_proxy ];then
    source /etc/profile.d/http_proxy
 fi
+
+function set-eterm-dir {
+    echo -e "\033AnSiTu" "$LOGNAME" # $LOGNAME is more portable than using whoami.
+    echo -e "\033AnSiTc" "$(pwd)"
+    echo -e "\033AnSiTh" "$(hostname)" # Using the -f option can
+}
+
+if [ ! -z $EMACS ];then
+    PROMPT_COMMAND=set-eterm-dir
+fi
