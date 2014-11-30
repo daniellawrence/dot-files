@@ -8,7 +8,7 @@ command='emacsclient -c'
 name='emacsclient'
 
 [custom0]
-binding='<Super><enter>'
+binding='<Super><Return>'
 command='gnome-terminal'
 name='gnome-terminal'
 EOF
