@@ -174,3 +174,6 @@ function set-eterm-dir {
 if [ ! -z $EMACS ];then
     PROMPT_COMMAND=set-eterm-dir
 fi
+
+# for tramp
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
