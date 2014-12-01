@@ -155,7 +155,25 @@ export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin/
 
+# For android dev work
+export PATH=$PATH:/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk/tools/android:/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk/tools/:/usr/lib/jvm/java-7-openjdk-amd64/
+export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
+export ANDROID_HOME=/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk
+
 # proxy
 if [ -f /etc/profile.d/http_proxy ];then
    source /etc/profile.d/http_proxy
 fi
+
+function set-eterm-dir {
+    echo -e "\033AnSiTu" "$LOGNAME" # $LOGNAME is more portable than using whoami.
+    echo -e "\033AnSiTc" "$(pwd)"
+    echo -e "\033AnSiTh" "$(hostname)" # Using the -f option can
+}
+
+if [ ! -z $EMACS ];then
+    PROMPT_COMMAND=set-eterm-dir
+fi
+
+# for tramp
+[[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return

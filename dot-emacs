@@ -29,10 +29,12 @@
 	  go-autocomplete go-mode
 	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
 	  markdown-mode dockerfile-mode
-	  jira org-jira
 	  gitlab helm-gitlab
 	  dash dash-functional
 	  git-gutter+ magit
+	  linum
+	  git-gutter-fringe
+	  bongo volume
 	  ))
 
  
@@ -59,8 +61,6 @@
 
 
 (setq x-select-enable-clipboard t)
-
-(server-start)
 
 
 ;; (require 'puppet-ext)
@@ -276,8 +276,6 @@ Including indent-buffer, which should not be called automatically on save."
 (require 'epa-file)
 (epa-file-enable)
 
-;; Show the battery in the command bar
-(display-battery-mode 1)
 
 ;; TRAMP + sudo  = <3
 (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
@@ -375,3 +373,19 @@ Including indent-buffer, which should not be called automatically on save."
 
 ;; shutup erc
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
+
+
+(when (window-system)
+  (require 'git-gutter-fringe))
+
+(global-git-gutter-mode +1)
+(setq-default indicate-buffer-boundaries 'left)
+(setq-default indicate-empty-lines +1)
+
+
+;; Show the battery in the command bar
+(display-battery-mode 1)
+
+;; quick open shell
+(global-set-key [f1] 'ansi-term)
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/sh"))

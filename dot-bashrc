@@ -127,14 +127,21 @@ venv_cd() {
 }
 alias cd="venv_cd"
 export WORKON_HOME=~/Envs
-source /usr/local/bin/virtualenvwrapper.sh
+
+if [ -f /usr/local/bin/virtualenvwrapper.sh ];then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 # added by travis gem
-source /home/dlawrence/.travis/travis.sh
+if [ -f ~/.travis/travis.sh ];then
+    source ~/.travis/travis.sh
+fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH="/usr/local/rbenv/shims:${PATH}"
-source "/usr/lib/rbenv/libexec/../completions/rbenv.bash"
+if [ -f /usr/lib/rbenv/libexec/../completions/rbenv.bash ];then
+    source "/usr/lib/rbenv/libexec/../completions/rbenv.bash"
+fi
 rbenv rehash 2>/dev/null
 rbenv() {
   command="$1"
@@ -169,9 +176,6 @@ fi
 if [ -f /etc/profile.d/http_proxy ];then
    source /etc/profile.d/http_proxy
 fi
-source /usr/local/bin/virtualenvwrapper.sh
-source ~/.nvm/nvm.sh
-source /usr/local/bin/virtualenvwrapper.sh
-source ~/.nvm/nvm.sh
-source /usr/local/bin/virtualenvwrapper.sh
-source ~/.nvm/nvm.sh
+if [ -f ~/.nvm/nvm.sh ];then
+    source ~/.nvm/nvm.sh
+fi

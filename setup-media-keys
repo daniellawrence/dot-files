@@ -1,0 +1,14 @@
+#!/bin/bash
+# Setup media keys
+
+cat << EOF | dconf load /org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/
+[custom1]
+binding='<Super>e'
+command='emacsclient -c'
+name='emacsclient'
+
+[custom0]
+binding='<Super><Return>'
+command='gnome-terminal'
+name='gnome-terminal'
+EOF
