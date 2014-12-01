@@ -34,6 +34,7 @@
 	  git-gutter+ magit
 	  linum
 	  git-gutter-fringe
+	  bongo volume
 	  ))
 
  
