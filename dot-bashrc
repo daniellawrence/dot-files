@@ -139,7 +139,9 @@ fi
 
 PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
 export PATH="/usr/local/rbenv/shims:${PATH}"
-source "/usr/lib/rbenv/libexec/../completions/rbenv.bash"
+if [ -f /usr/lib/rbenv/libexec/../completions/rbenv.bash ];then
+    source "/usr/lib/rbenv/libexec/../completions/rbenv.bash"
+fi
 rbenv rehash 2>/dev/null
 rbenv() {
   command="$1"
