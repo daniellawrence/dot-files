@@ -29,10 +29,11 @@
 	  go-autocomplete go-mode
 	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
 	  markdown-mode dockerfile-mode
-	  jira org-jira
 	  gitlab helm-gitlab
 	  dash dash-functional
 	  git-gutter+ magit
+	  linum
+	  git-gutter-fringe
 	  ))
 
  
@@ -62,8 +63,6 @@
 
 
 (setq x-select-enable-clipboard t)
-
-(server-start)
 
 
 ;; (require 'puppet-ext)
@@ -377,13 +376,14 @@ Including indent-buffer, which should not be called automatically on save."
 (add-hook 'ruby-mode-hook 'flymake-ruby-load)
 
 ;; shutup erc
-
-
 (setq erc-hide-list '("JOIN" "PART" "QUIT"))
-(load-file "/home/dannyla/.emacs.d/pycoverage/pycov2.el")
-(require 'linum)
-(require 'pycov2)
-(add-hook 'python-mode-hook
-(function (lambda ()
-(pycov2-mode)
-(linum-mode))))
+
+
+
+
+(when (window-system)
+  (require 'git-gutter-fringe))
+
+(global-git-gutter-mode +1)
+(setq-default indicate-buffer-boundaries 'left)
+(setq-default indicate-empty-lines +1)
