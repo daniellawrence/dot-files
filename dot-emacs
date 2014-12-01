@@ -278,8 +278,6 @@ Including indent-buffer, which should not be called automatically on save."
 (require 'epa-file)
 (epa-file-enable)
 
-;; Show the battery in the command bar
-(display-battery-mode 1)
 
 ;; TRAMP + sudo  = <3
 (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
@@ -387,3 +385,7 @@ Including indent-buffer, which should not be called automatically on save."
 (global-git-gutter-mode +1)
 (setq-default indicate-buffer-boundaries 'left)
 (setq-default indicate-empty-lines +1)
+
+
+;; Show the battery in the command bar
+(display-battery-mode 1)
