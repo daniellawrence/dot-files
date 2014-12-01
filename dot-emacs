@@ -36,9 +36,6 @@
 	  ))
 
  
-;;
-;;(require 'yasnippelt)
-;;(require 'cloudformation-mode)
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -47,9 +44,6 @@
 ;; nginx and apache modes
 (require 'nginx-mode)
 (require 'apache-mode)
-
-(add-to-list 'load-path "~/.emacs.d/")
-(require 'cloudformation-mode)
 
 ;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
 ;; --------------------
