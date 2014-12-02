@@ -391,3 +391,16 @@ Including indent-buffer, which should not be called automatically on save."
 ;; quick open shell
 (global-set-key [f1] 'ansi-term)
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/sh"))
+
+;; Enable snippets
+(require 'yasnippelt)
+(yas-global-mode t)
+
+;; Easy create snippets
+(defun create-snippet (filename)
+     (interactive "s")
+     (let ((mode (symbol-name major-mode)))
+       (find-file (format "~/.emacs.d/snippets/%s/%s" mode filename))
+       (snippet-mode)))
+
+(global-set-key (kbd "M-'") 'create-snippet)
