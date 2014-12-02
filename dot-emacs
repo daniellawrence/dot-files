@@ -33,7 +33,7 @@
 	  dash dash-functional
 	  git-gutter+ magit git-gutter-fringe
 	  linum
-	  ack-and-a-half ag
+	  ack ack-and-a-half ag
 	  projectile
 	  bongo volume
 	  ))
