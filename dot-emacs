@@ -34,11 +34,12 @@
 	  git-gutter+ magit
 	  linum
 	  git-gutter-fringe
+	  ack-and-a-half ag
+	  projectile
 	  ))
 
  
 ;;
-;;(require 'yasnippelt)
 ;;(require 'cloudformation-mode)
 
 ;; Enable evil for vim bindings
@@ -404,3 +405,6 @@ Including indent-buffer, which should not be called automatically on save."
        (snippet-mode)))
 
 (global-set-key (kbd "M-'") 'create-snippet)
+
+;; enable projectile
+(projectile-global-mode)
