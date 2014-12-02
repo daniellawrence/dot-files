@@ -36,7 +36,9 @@
 	  ack ack-and-a-half ag
 	  projectile
 	  bongo volume
+	  impatient-mode
 	  ))
+
 
 ;; Enable evil for vim bindings
 (require 'evil)
@@ -192,12 +194,13 @@ Including indent-buffer, which should not be called automatically on save."
       (transpose-lines -1))
     (move-to-column col)))
 
-(global-set-key (kbd "<C-S-up>") 'move-line-up)
-(global-set-key (kbd "<C-S-down>") 'move-line-down)
 
+(global-set-key (kbd "<C-S-down>") 'move-line-down)
+(global-set-key (kbd "<C-S-up>") 'move-line-up)
 
 ;; Auto refresh buffers
 (global-auto-revert-mode 1)
+
 
 ;; Also auto refresh dired, but be quiet about it
 (setq global-auto-revert-non-file-buffers t)
