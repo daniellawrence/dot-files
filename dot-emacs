@@ -37,6 +37,7 @@
 	  projectile
 	  bongo volume
 	  impatient-mode
+	  json-mode
 	  ))
 
 
