@@ -1,0 +1,1 @@
+$$1 = hiera('${1:lookup_key}', ${2:default_value})

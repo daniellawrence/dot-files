@@ -1,0 +1,4 @@
+package { '${1:packagename}':
+    ensure => installed,
+    $0
+}
