@@ -407,3 +407,7 @@ Including indent-buffer, which should not be called automatically on save."
 
 ;; enable projectile
 (projectile-global-mode)
+
+;; org-mode better code
+(setq org-src-fontify-natively t)
+
