@@ -177,3 +177,8 @@ fi
 
 # for tramp
 [[ $TERM == "dumb" ]] && unsetopt zle && PS1='$ ' && return
+
+# Rip out proxies
+function no_proxy() {
+	 $(env |grep -i proxy | sed -e 's/=.*/=/' -e 's/^/export /')
+}
