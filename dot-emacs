@@ -448,4 +448,6 @@ Including indent-buffer, which should not be called automatically on save."
 (require 'flymake-vala)
 (add-hook 'vala-mode-hook 'flymake-vala-load)
 
+(add-to-list 'auto-mode-alist '("dot-emacs$" . emacs-lisp-mode))
+(add-to-list 'auto-mode-alist '("\\.el$" . emacs-lisp-mode))
 
