@@ -129,12 +129,6 @@
 ;; (require 'py-autopep8)
 ;; (add-hook 'before-save-hook 'python-fmt-before-save)
 
-
-;; yaml mode for aml files
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-
 ;; Don't show the startup screen
 (setq inhibit-startup-message t)
 
