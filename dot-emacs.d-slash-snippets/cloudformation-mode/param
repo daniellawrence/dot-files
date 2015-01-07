@@ -1,0 +1,5 @@
+"$1": {
+  "Description": "$2",
+  "Type": "String",
+  "Default": ""
+},
