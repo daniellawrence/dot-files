@@ -67,11 +67,6 @@
 
 (setq x-select-enable-clipboard t)
 
-
-;; (require 'puppet-ext)
-
-
-
 ;; Helm
 (require 'helm-config)
 (require 'helm-flymake)
