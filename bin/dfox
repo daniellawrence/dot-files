@@ -1,17 +1,2 @@
-#!/bin/bash
-
-cat << EOF | docker build -t iceweasel -
-FROM debian:latest
-
-RUN apt-get update 
-RUN apt-get install -y iceweasel
-RUN useradd -c "iceweasel" -m -d /home/iceweasel iceweasel
-
-USER iceweasel
-ENV HOME /home/iceweasel
-WORKDIR /home/iceweasel
-
-CMD /usr/bin/iceweasel --safe --private
-EOF
-
-docker run --rm -ti -e DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix iceweasel $@
+#!/bin/bash -x
+dany iceweasel
