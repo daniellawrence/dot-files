@@ -1,2 +1,2 @@
 #!/bin/bash -x
-dany iceweasel
+./dany iceweasel $@
