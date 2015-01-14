@@ -42,6 +42,7 @@
 	  django-snippets
 	  vala-mode flymake-vala
 	  ansible ansible-doc
+          groovy-mode grails-mode
 	  ))
 
 
