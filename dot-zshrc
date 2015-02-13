@@ -7,10 +7,13 @@ if [[ ! -d ~/.zsh/antigen ]];then
    mkdir ~/.zsh
    (cd ~/.zsh/ ; git clone https://github.com/zsh-users/antigen.git )
 fi
-if [[ ! -d ~/.zsh/gnome-terminal-colors-monokai ]];then
-   mkdir ~/.zsh
-   (cd ~/.zsh/ ; git clone https://github.com/pricco/gnome-terminal-colors-monokai.git )
-   (cd ~/.zsh/gnome-terminal-colors-monokai; ./install.sh -p Default)
+
+if [[ "$(uname)" == "Linux" ]];then
+    if [[ ! -d ~/.zsh/gnome-terminal-colors-monokai ]];then
+	mkdir ~/.zsh
+	(cd ~/.zsh/ ; git clone https://github.com/pricco/gnome-terminal-colors-monokai.git )
+	(cd ~/.zsh/gnome-terminal-colors-monokai; ./install.sh -p Default)
+    fi
 fi
 source ~/.zsh/antigen/antigen.zsh
 
@@ -38,7 +41,9 @@ antigen theme candy
 # Tell antigen that you're done.
 antigen apply
 
-alias ls='ls --color=tty -B'
+if [[ "$(uname)" == "Linux" ]];then
+    alias ls='ls --color=tty -B'
+fi
 
 # add custom completion scripts
 fpath=(~/.zsh/completion $fpath)
@@ -113,12 +118,11 @@ export PATH="/usr/local/rbenv/shims:${PATH}"
 #
 # Local AWS configuration
 if [ -f ~/.aws ];then
-source ~/.aws
+    source ~/.aws
 fi
 
 # use my local pip cache vi devpi
-export PIP_INDEX_URL=http://localhost:3141/$USER/all/+simple/
-
+# export PIP_INDEX_URL=http://localhost:3141/$USER/all/+simple/
 # $ devpi-server --start
 # $ devpi use http://localhost:3141
 # $ devpi user -c $USER password=
@@ -145,10 +149,6 @@ export TERM=xterm-256color
 if [ -f /usr/local/bin/virtualenvwrapper.sh ];then
    source /usr/local/bin/virtualenvwrapper.sh
 fi
-
-# nvm
-export NVM_DIR="/home/m44716/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 # java
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
