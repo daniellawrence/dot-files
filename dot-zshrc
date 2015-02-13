@@ -157,10 +157,12 @@ export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
 export GOPATH=~/go
 export PATH=$PATH:$GOPATH/bin/
 
-# For android dev work
-export PATH=$PATH:/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk/tools/android:/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk/tools/:/usr/lib/jvm/java-7-openjdk-amd64/
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
-export ANDROID_HOME=/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk
+if [[ "$(uname)" == "Linux" ]];then
+    # For android dev work
+    export PATH=$PATH:/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk/tools/android:/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk/tools/:/usr/lib/jvm/java-7-openjdk-amd64/
+    export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64/jre/
+    export ANDROID_HOME=/home/dannyla/Downloads/adt/adt-bundle-linux-x86_64-20140702/sdk
+fi
 
 # proxy
 if [ -f /etc/profile.d/http_proxy ];then
