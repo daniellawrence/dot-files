@@ -7,9 +7,10 @@ BASEDIR=$PWD
 #---------------------------------------------------
 # Link in all the dot files
 #---------------------------------------------------
-for DOT_FILE in $( ls dot-*  | egrep -v '~$|#$' )
+for DOT_FILE in $( ls -d dot-*  | egrep -v '~$|#$' )
 do
     REAL_DOT_FILE=~/$(echo ${DOT_FILE} | sed -e 's/dot-/\./g' -e 's/-slash-/\//g' -e 's/://g' )
+    echo $DOT_FILE
     DOT_FILE=$(echo ${DOT_FILE} |sed 's/://g')
 
 
@@ -27,7 +28,7 @@ do
     
     echo "Linking $REAL_DOT_FILE -> ${BASEDIR}/${DOT_FILE}"
     # For some reason base really didn't want to make this work.
-    echo ln -s ${BASEDIR}/${DOT_FILE} ${REAL_DOT_FILE} | sh
+    echo ln -s ${BASEDIR}/${DOT_FILE} ${REAL_DOT_FILE}  | sh
     
     echo
 done
