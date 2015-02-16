@@ -41,9 +41,7 @@ antigen theme candy
 # Tell antigen that you're done.
 antigen apply
 
-if [[ "$(uname)" == "Linux" ]];then
-    alias ls='ls --color=tty -B'
-fi
+alias ls='ls --color=tty'
 
 # add custom completion scripts
 fpath=(~/.zsh/completion $fpath)
