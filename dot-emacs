@@ -24,7 +24,7 @@
 	  nginx-mode apache-mode
 	  twittering-mode multiple-cursors confluence browse-kill-ring
 	  flymake-python-pyflakes
-	  ssh-config-mode yasnippet monokai-theme
+	  ssh-config-mode yasnippet
 	  web-mode
 	  project-explorer
 	  go-autocomplete go-mode
@@ -342,7 +342,7 @@ Including indent-buffer, which should not be called automatically on save."
 (add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
 
 (electric-indent-mode 0)
-(load-theme 'monokai t)
+(load-theme 'flatland t)
 
   (when (require 'automargin nil t)
     (automargin-mode 1))
@@ -424,11 +424,6 @@ Including indent-buffer, which should not be called automatically on save."
 (add-to-list 'auto-mode-alist '(".emacs$" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("dot-emacs$" . emacs-lisp-mode))
 (add-to-list 'auto-mode-alist '("\\.el$" . emacs-lisp-mode))
-
-;; vala
-;; (require 'flymake-vala)
-;; (add-hook 'vala-mode-hook 'flymake-vala-load)
-
 
 
 (defun new-blog-post (title)
