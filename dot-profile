@@ -32,7 +32,9 @@ export PATH=$PATH:/usr/local/go/bin
 export GOROOT=/usr/local/go
 
 # Make sure the dot files are all in sync
-(cd ~/github/dot-files && git fetch &)
+if [[ "$(hostname)" == "xps13z" ]];then
+    (cd ~/github/dot-files && git fetch &)
+fi
 
 # Disable power
 if [[ "$(hostname)" == "xps13z" ]];then
