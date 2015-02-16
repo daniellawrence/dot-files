@@ -184,3 +184,7 @@ fi
 if [ -f ~/.nvm/nvm.sh ];then
     source ~/.nvm/nvm.sh
 fi
+
+
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"

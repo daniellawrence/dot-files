@@ -187,3 +187,6 @@ function no_proxy() {
 	 $(env |grep -i proxy | sed -e 's/=.*/=/' -e 's/^/export /')
 }
 
+
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
