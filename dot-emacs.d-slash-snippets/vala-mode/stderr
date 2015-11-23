@@ -1,1 +1,0 @@
-stderr.printf("${0}\n");

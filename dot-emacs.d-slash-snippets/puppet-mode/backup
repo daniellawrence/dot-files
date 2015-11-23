@@ -1,1 +1,0 @@
-backup::backup_directory { '${1:path_to_backup}': }

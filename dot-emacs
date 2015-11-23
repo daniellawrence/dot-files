@@ -65,7 +65,7 @@
 ;; Don't use messages that you don't read
 (setq initial-scratch-message "")
 (setq inhibit-startup-message t)
-(setq initial-buffer-choice "~/notes.org")
+
 ;; Don't let Emacs hurt your ears
 (setq visible-bell t)
 

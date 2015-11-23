@@ -1,6 +1,0 @@
-service { ${1:servicename}:
-    ensure  => running,
-    enable  => true,
-    require => Package['$1'],
-    $0
-}

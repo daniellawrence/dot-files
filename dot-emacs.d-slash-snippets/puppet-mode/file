@@ -1,8 +1,0 @@
-file { '${1:file_path}':
-    ensure  => present,
-    content => '${2:content_of_file}',
-    owner   => '${3:root}',
-    group   => '$3',
-    mode    => '${4:750}';
-}
-$0

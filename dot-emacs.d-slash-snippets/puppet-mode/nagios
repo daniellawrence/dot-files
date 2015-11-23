@@ -1,3 +1,0 @@
-nagios-new::nrpe::service { '${1:check_name}':
-    check_command => '${2:path_to_check}';
-}

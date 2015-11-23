@@ -1,7 +1,0 @@
-apt::source { '${1:puppetlabs}':
-    location   => '${2:http://apt.puppetlabs.com}',
-    repos      => '${3:main}',
-    key        => '${4:4BD6EC30}',
-    key_server => '${5:pgp.mit.edu}',
-}
-$0
