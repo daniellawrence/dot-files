@@ -1,137 +1,42 @@
-;; INSTALL THE maralade package repo.:
+;;
+(toggle-scroll-bar -1)
+(tool-bar-mode -1)
+
+;;
 (require 'package)
-(package-initialize)
-(add-to-list 'package-archives '("gnu" . "http://elpa.gnu.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.org/packages/"))
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/"))
-(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
-
+:(package-initialize)
+ (add-to-list 'package-archives '("gnu" . "https://elpa.gnu.org/packages/"))
+ (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
+ (add-to-list 'package-archives '("melpa" . "https://melpa.milkbox.net/packages/"))
+ (add-to-list 'package-archives '("marmalade" . "https://marmalade-repo.org/packages/"))
 (package-refresh-contents)
-
 
 ;; check if the packages is installed; if not, install it.
 (mapc
  (lambda (package)
    (or (package-installed-p package)
 	   (package-install package)))
- '(dired+ rainbow-mode jedi helm evil
-	  flymake
- 	  puppet-mode puppetfile-mode flymake-puppet
-	  flymake-jshint helm-flymake
-	  flyspell-lazy
-	  flatland-theme
-	  yaml-mode ace-jump-mode
-	  nginx-mode apache-mode
-	  twittering-mode multiple-cursors confluence browse-kill-ring
-	  flymake-python-pyflakes
-	  ssh-config-mode yasnippet
-	  web-mode
-	  project-explorer
-	  go-autocomplete go-mode
-	  rinari ruby-mode robe enh-ruby-mode flymake-ruby
-	  markdown-mode dockerfile-mode
-	  gitlab helm-gitlab
-	  dash dash-functional
-	  git-gutter+ magit git-gutter-fringe
-	  linum
-	  ack ag
-	  projectile
-	  bongo volume
-	  impatient-mode
-	  json-mode
-	  django-snippets
-	  ansible ansible-doc
-          groovy-mode grails-mode
-	  ))
+ '(
+   dired+
+   rainbow-mode
+   jedi helm
+   yaml-mode ace-jump-mode
+   monokai-theme
+   web-mode
+   markdown-mode dockerfile-mode
+   gitlab
+   dash dash-functional
+   git-gutter+ magit git-gutter-fringe
+   linum
+   ack ag
+   projectile
+   json-mode
+   nyan-mode
+   virtualenvwrapper
+   git-timemachine
+   ))
 
-
-;; Enable evil for vim bindings
-(require 'evil)
-(evil-mode 1)
-
-;; nginx and apache modes
-(require 'nginx-mode)
-(require 'apache-mode)
-
-;; ACE-JUMP: http://www.emacswiki.org/emacs/AceJump
-;; --------------------
-;; Set mark
-;; C-SPC
-;; Jump to word
-;; C-c SPC <First_letter_of_word> <LETTER>
-;; Jump Back to mark
-;; C-U C-SPC
-(require 'ace-jump-mode)
-(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
-;; (setq x-select-enable-clipboard t)
-
-;; Helm
-(require 'helm-config)
-(require 'helm-flymake)
-(global-set-key (kbd "C-c h") 'helm-mini)
-(helm-mode 1)
-
-;; Disable all the fricken menu bars...
-(menu-bar-mode -1)
-(toggle-scroll-bar -1)
-(tool-bar-mode -1)
-
-;; Puppetfile
-(require 'puppetfile-mode)
-(add-to-list 'auto-mode-alist '("Puppetfile\\'" . puppetfile-mode))
-
-;; Puppet
-(add-to-list 'auto-mode-alist '("pp$" . puppet-mode))
-;; (add-hook 'puppet-mode 'flymake-puppet-load)
-
-;; Editing files on remote machines
-(require 'tramp)
-(setq tramp-default-method "ssh")
-(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
-
-;;
-(require 'flyspell-lazy)
-(flyspell-lazy-mode 0)
-(flyspell-mode 1)
-
-
-;;
-;;(setq erc-autojoin-channels-alist
-;;      '(("freenode.net" "#puppet" "#puppetboard" "#shipyard" "#python")))
-;;(erc :server "irc.freenode.net" :port 6667 :nick "dannyla")
-;;(setq erc-hide-list '("JOIN" "PART" "QUIT"))
-
-;; yaml mode for yaml files
-(require 'yaml-mode)
-(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
-(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
-
-(add-to-list 'load-path "~/.emacs.d/ext/")
-(require 'cloudformation-mode)
-
-(add-to-list 'auto-mode-alist '("\\.cf$" . cloudoformation-mode))
-(add-to-list 'auto-mode-alist '("\\.cloudformation$" . cloudoformation-mode))
-
-(add-to-list
- 'magic-mode-alist
- '("\\(.\\|\n\\)*AWSTemplateFormatVersion" . cloudformation-mode))
-
-;; check the crap out of python
-(when (load "flymake" t)
-  (defun flymake-pyflakes-init ()
-    (let* ((temp-file (flymake-init-create-temp-buffer-copy
-		       'flymake-create-temp-inplace))
-	   (local-file (file-relative-name
-			temp-file
-			(file-name-directory buffer-file-name))))
-      (list "pycheckers"  (list local-file))))
-  (add-to-list 'flymake-allowed-file-name-masks
-	       '("\\.py\\'" flymake-pyflakes-init)))
-
-;; (add-to-list 'load-path "/path/to/py-autopep8.el/")
-;; (require 'py-autopep8)
-;; (add-hook 'before-save-hook 'python-fmt-before-save)
+(nyan-mode)
 
 ;; Don't show the startup screen
 (setq inhibit-startup-message t)
@@ -140,279 +45,71 @@
 (setq line-number-mode    t)
 (setq column-number-mode  t)
 
-;; Emacs gurus don't need no stinking scroll bars
-(when (fboundp 'toggle-scroll-bar)
-  (toggle-scroll-bar -1))
 
-;; Explicitly show the end of a buffer
-(set-default 'indicate-empty-lines t)
+(require 'virtualenvwrapper)
+(setq jedi:setup-keys t)
 
-;; Emacs gurus don't need no stinking scroll bars
-(when (fboundp 'toggle-scroll-bar)
-  (toggle-scroll-bar -1))
+(setq venv-location "~/.virtualenvs/")
+(setq python-shell-virtualenv-path "~/.virtualenvs/emacs")
+(setq python-environment-directory venv-location)
 
-;; Explicitly show the end of a buffer
-(set-default 'indicate-empty-lines t)
-
-;;
-(require 'flymake-python-pyflakes)
-(setq flymake-python-pyflakes-executable "flake8")
-
-;; emacs-jedi
-(autoload 'jedi:setup "jedi" nil t)
-(add-hook 'python-mode-hook 'jedi:setup)
-(setq jedi:setup-keys t)                      ; optional
-(setq jedi:complete-on-dot t)                 ; optional
-
-;; fly-pyflakes
-(require 'flymake-python-pyflakes)
-(setq flymake-python-pyflakes-executable "flake8")
-(add-hook 'python-mode-hook 'flymake-python-pyflakes-load)
-(put 'dired-find-alternate-file 'disabled nil)
-
-(defun cleanup-buffer ()
-  "Perform a bunch of operations on the whitespace content of a buffer.
-Including indent-buffer, which should not be called automatically on save."
-  (interactive)
-  (cleanup-buffer-safe)
-  (indent-region (point-min) (point-max)))
-
-(global-set-key (kbd "C-c n") 'cleanup-buffer)
-
-(defun move-line-down ()
-  (interactive)
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines 1))
-    (forward-line)
-    (move-to-column col)))
-
-(defun move-line-up ()
-  (interactive)
-  (let ((col (current-column)))
-    (save-excursion
-      (forward-line)
-      (transpose-lines -1))
-    (move-to-column col)))
-
-
-(global-set-key (kbd "<C-S-down>") 'move-line-down)
-(global-set-key (kbd "<C-S-up>") 'move-line-up)
-
-;; Auto refresh buffers
-(global-auto-revert-mode 1)
-
-
-;; Also auto refresh dired, but be quiet about it
-(setq global-auto-revert-non-file-buffers t)
-(setq auto-revert-verbose nil)
-
-;; show line numbers in the side bar
-(linum-mode -1)
-
-;; dansysadm: Test message from within emacs
-;; sengork:   @dansysadm finally an OS with a twitter client...
-(require 'twittering-mode)
-
-;; Handy if I can't be bothered regexin'
-(require 'multiple-cursors)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(venv-initialize-eshell) ;; if you want eshell support
+(venv-initialize-interactive-shells) ;; if you want intera`ctive shell support
 
 ;; magit love
 (global-set-key (kbd "C-c z") 'magit-status)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Need to git-clone a few things to get this working
-;; TODO: Work out how to get emacs to clone on startup.
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; volume control for emacs - Fuck this is awesome
-(autoload 'volume "volume"
-     "Tweak your sound card volume." t)
-
-;; VLC controll for emacs - Legen...Wait for it...Dary 
-(add-to-list 'load-path "~/.emacs.d/bongo")
-(autoload 'bongo "bongo"
-  "Start Bongo by switching to a Bongo buffer." t)
-
-
-(defun eval-region-or-buffer ()
-  (interactive)
-  (let ((debug-on-error t))
-    (cond
-     (mark-active
-      (call-interactively 'eval-region)
-      (message "Region evaluated!")
-      (setq deactivate-mark t))
-     (t
-      (eval-buffer)
-      (message "Buffer evaluated!")))))
-
-(add-hook 'emacs-lisp-mode-hook
-	  (lambda ()
-	    (local-set-key (kbd "C-x w") 'eval-region-or-buffer)))
-
-;; kill ring (C&P buffer)
-(global-set-key (kbd "C-c k") 'browse-kill-ring)
-
-;; Confluence 
-;; login: M-x confluence-login
-;; Search: M-x confluence-search
-;; XML -> wiki:  cfln-convert-xml-to-wiki
-;; wiki -> XML: cfln-convert-wiki-to-xml 
-
-;; (require 'confluence)
-;; (setq confluence-url "https://confluence/rpc/xmlrpc")
-;; (global-set-key (kbd "C-c w") 'cfln-convert-xml-to-wiki)
-;; (global-set-key (kbd "C-c W") 'cfln-convert-wiki-to-xml)
-
-;; I Too Like to Live Dangerously
-;; (setq confluence-xml-convert-to-wiki-on-load t)
-
-;; allow for buffer narrowing
-(put 'narrow-to-region 'disabled nil)
-(put 'narrow-to-page 'disabled nil)
-
-(require 'epa-file)
-(epa-file-enable)
-
-
-;; TRAMP + sudo  = <3
-(set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
-(eval-after-load "tramp"
-  '(progn
-     (defvar sudo-tramp-prefix 
-       "/sudo:" 
-       (concat "Prefix to be used by sudo commands when building tramp path "))
-     (defun sudo-file-name (filename)
-       (set 'splitname (split-string filename ":"))
-       (if (> (length splitname) 1)
-         (progn (set 'final-split (cdr splitname))
-                (set 'sudo-tramp-prefix "/sudo:")
-                )
-         (progn (set 'final-split splitname)
-                (set 'sudo-tramp-prefix (concat sudo-tramp-prefix "root@localhost:")))
-         )
-       (set 'final-fn (concat sudo-tramp-prefix (mapconcat (lambda (e) e) final-split ":")))
-       (message "splitname is %s" splitname)
-       (message "sudo-tramp-prefix is %s" sudo-tramp-prefix)
-       (message "final-split is %s" final-split)
-       (message "final-fn is %s" final-fn)
-       (message "%s" final-fn)
-       )
-
-     (defun sudo-find-file (filename &optional wildcards)
-       "Calls find-file with filename with sudo-tramp-prefix prepended"
-       (interactive "fFind file with sudo ")      
-       (let ((sudo-name (sudo-file-name filename)))
-         (apply 'find-file 
-                (cons sudo-name (if (boundp 'wildcards) '(wildcards))))))
-
-     (defun sudo-reopen-file ()
-       "Reopen file as root by prefixing its name with sudo-tramp-prefix and by clearing buffer-read-only"
-       (interactive)
-       (let* 
-           ((file-name (expand-file-name buffer-file-name))
-            (sudo-name (sudo-file-name file-name)))
-         (progn           
-           (setq buffer-file-name sudo-name)
-           (rename-buffer sudo-name)
-           (setq buffer-read-only nil)
-           (message (concat "File name set to " sudo-name)))))
-
-     ;;(global-set-key (kbd "C-c o") 'sudo-find-file)
-     (global-set-key (kbd "C-c o s") 'sudo-reopen-file)))
 
 ;; Prevent the cursor from blinking
 (blink-cursor-mode 0)
 ;; Don't use messages that you don't read
 (setq initial-scratch-message "")
 (setq inhibit-startup-message t)
+(setq initial-buffer-choice "~/notes.org")
 ;; Don't let Emacs hurt your ears
 (setq visible-bell t)
 
-;; SSH configurations
-(autoload 'ssh-config-mode "ssh-config-mode" t)
-(add-to-list 'auto-mode-alist '(".ssh/config\\'"  . ssh-config-mode))
-(add-to-list 'auto-mode-alist '("sshd?_config\\'" . ssh-config-mode))
-(add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
 
-(electric-indent-mode 0)
-(load-theme 'flatland t)
+(require 'yaml-mode)
+(add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
+(add-to-list 'auto-mode-alist '("\\.yaml$" . yaml-mode))
 
-  (when (require 'automargin nil t)
-    (automargin-mode 1))
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
 
 
-(ac-config-default)
-(setq ac-ignore-case nil)
-(add-to-list 'ac-modes 'enh-ruby-mode)
-(add-to-list 'ac-modes 'web-mode)
+(require 'helm-config)
+(global-set-key (kbd "M-x") 'helm-M-x)
+(helm-mode 1)
 
-(require 'go-autocomplete)
-(require 'auto-complete-config)
+(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 
-(add-to-list 'auto-mode-alist
-	     '("\\.\\(?:gemspec\\|irbrc\\|gemrc\\|rake\\|rb\\|ru\\|thor\\)\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist
-	     '("\\(Capfile\\|Gemfile\\(?:\\.[a-zA-Z0-9._-]+\\)?\\|[rR]akefile\\)\\'" . ruby-mode))
-(add-to-list 'auto-mode-alist
-	     '("\\.\\(?:\\.html\\)\\'" . web-mode))
-(add-to-list 'auto-mode-alist
-	     '("\\.\\(?:\\.tmpl\\)\\'" . web-mode))
-	     
-(require 'flymake-ruby)
-(add-hook 'ruby-mode-hook 'flymake-ruby-load)
+(add-hook 'emacs-startup-hook (lambda ()
+                                (let ((default-directory (getenv "HOME")))
+                                  (command-execute 'eshell)
+                                  (bury-buffer))))
 
-;; shutup erc
-(setq erc-hide-list '("JOIN" "PART" "QUIT"))
+(global-set-key (kbd "C-x C-a") 'helm-do-grep-ag)
 
+(setq enable-recursive-minibuffers t)
 
-(when (window-system)
-  (require 'git-gutter-fringe))
+(setq helm-grep-default-command
+      "ack-grep -Hn --smart-case --no-group %e %p %f"
+      helm-grep-default-recurse-command
+      "ack-grep -H --smart-case --no-group %e %p %f")
 
 (global-git-gutter-mode +1)
-(setq-default indicate-buffer-boundaries 'left)
-(setq-default indicate-empty-lines +1)
 
-
-;; Show the battery in the command bar
-(display-battery-mode 1)
-
-;; quick open shell
-(global-set-key [f1] 'ansi-term)
-(eval-after-load 'tramp '(setenv "SHELL" "/bin/sh"))
-
-;; Enable snippets
-(require 'yasnippet)
-(yas-global-mode t)
-
-;; Easy create snippets
-(defun create-snippet (filename)
-     (interactive "s")
-     (let ((mode (symbol-name major-mode)))
-       (find-file (format "~/.emacs.d/snippets/%s/%s" mode filename))
-       (snippet-mode)))
-
-(global-set-key (kbd "M-'") 'create-snippet)
-
-;; enable projectile
-(projectile-global-mode)
-
-;; org-mode better code
-(setq org-src-fontify-natively t)
-
+(load-theme 'monokai t)
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(magit-use-overlays nil))
+ '(custom-safe-themes
+   (quote
+    ("196cc00960232cfc7e74f4e95a94a5977cb16fd28ba7282195338f68c84058ec" default))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -420,33 +117,44 @@ Including indent-buffer, which should not be called automatically on save."
  ;; If there is more than one, they won't work right.
  )
 
-;; force dot-emacs / .emac into emacs-lisp-mode
-(add-to-list 'auto-mode-alist '(".emacs$" . emacs-lisp-mode))
-(add-to-list 'auto-mode-alist '("dot-emacs$" . emacs-lisp-mode))
-(add-to-list 'auto-mode-alist '("\\.el$" . emacs-lisp-mode))
+(global-set-key (kbd "C-c p s") 'helm-projectile-ack)
+(global-set-key (kbd "C-c p z") 'magit-status)
+(global-set-key (kbd "C-c p f") 'helm-projectile-find-file)
+
+(projectile-global-mode)
+(setq projectile-completion-system 'helm)
+;; (helm-projectile-on)
+
+(server-mode)
 
 
-(defun new-blog-post (title)
-     (interactive "s")
-     (let ((date (format-time-string "%Y-%m-%d")))
-       (find-file (
-		   format 
-		   "~/code/github/daniellawrence/daniellawrence.github.io/_posts/%s-%s.markdown" 
-		   date (replace-regexp-in-string " " "-" title)))
-       (insert "---\n\n")
-       (insert "layout: post\n")
-       (insert (format "title: %s\n" title))
-       (insert (format-time-string "date: %Y-%m-%d %H:%M:%S\n"))
-       (insert "category: blog\n\n")
-       (insert "---\n\n\n")
-       (markdown-mode)))
+(global-auto-complete-mode)
 
-(require 'powerline)
-(powerline-default-theme)
+(add-hook 'python-mode-hook
+	  (lambda ()
+	    (setq comint-process-echoes t)
+	    (jedi:setup)
+	    ))
 
-(require 'go-autocomplete)
-(require 'auto-complete-config)
+(setq jedi:setup-keys t)
+(setq jedi:complete-on-dot nil)
 
+;; use flake8 for checking
+(setq python-check-command "flake8")
 
-;; EOF
+;; set the default virtualenv so that jedi can at least load
+(setq python-shell-virtualenv-path "/Users/dannyla/.virtualenvs/emacs")
 
+;; setup virtualenvwrapper
+(setq venv-location "~/.virtualenvs/")
+(venv-initialize-eshell)
+(venv-initialize-interactive-shells)
+
+(autoload 'ssh-config-mode "ssh-config-mode" t)
+(add-to-list 'auto-mode-alist '(".ssh/config\\'"       . ssh-config-mode))
+(add-to-list 'auto-mode-alist '("sshd?_config\\'"      . ssh-config-mode))
+(add-to-list 'auto-mode-alist '("known_hosts\\'"       . ssh-known-hosts-mode))
+(add-to-list 'auto-mode-alist '("authorized_keys2?\\'" . ssh-authorized-keys-mode))
+(add-hook 'ssh-config-mode-hook 'turn-on-font-lock)
+
+(flycheck-mode)
