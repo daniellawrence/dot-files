@@ -96,6 +96,9 @@ alias vim='emacsclient -c'
 alias vi='emacsclient -c'
 alias view='emacsclient -c'
 alias e='emacsclient -t'
+alias ee='emacsclient -t .'
+alias gs='emacsclient -c -e "(magit-status)"'
+alias es='emacsclient -t -e "(magit-status)"'
 
 export PATH="/usr/local/rbenv/shims:${PATH}"
 #source "/usr/lib/rbenv/libexec/../completions/rbenv.zsh"
