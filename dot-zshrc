@@ -189,3 +189,13 @@ alias ta='tmux attach -t'
 alias tnew='tmux new -s'
 alias tls='tmux ls'
 alias tkill='tmux kill-session -t'
+
+# Workstation
+if [[ $(hostname|grep -c "-ld1") -eq 1 ]];then
+    export JAVA_HOME=/export/apps/jdk/JDK-1_8_0_5/
+fi
+
+# OSX
+if [[ $(hostname|grep -c "-mn1") -eq 1 ]];then
+    export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home
+fi
