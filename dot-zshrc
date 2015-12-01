@@ -190,6 +190,9 @@ alias tnew='tmux new -s'
 alias tls='tmux ls'
 alias tkill='tmux kill-session -t'
 
+export PATH="/usr/local/bin:$PATH"
+
+
 # Workstation
 if [[ $(hostname|grep -c "ld1") -eq 1 ]];then
     export JAVA_HOME=/export/apps/jdk/JDK-1_8_0_5/
