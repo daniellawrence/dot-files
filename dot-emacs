@@ -159,3 +159,6 @@
 
 (flycheck-mode)
 (put 'upcase-region 'disabled nil)
+
+;; jump to line
+(global-set-key (kbd "C-;") 'goto-line)
