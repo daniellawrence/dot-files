@@ -182,10 +182,18 @@ function no_proxy() {
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 
+tmux_force_attach () {
+set -x
+    TMUX_SESSIONS=$(tmux list-sessions 2>&1)
+    if [[ $(echo $TMUX_SESSIONS |grep -c "Connection refused") -eq 1 ]];then
+	tmux
+    else
+	tmux a
+    fi
+}
 
 # aliases for Tmux
-alias tmux='tmux -2'
-alias ta='tmux attach -t'
+alias a=tmux_force_attach
 alias tnew='tmux new -s'
 alias tls='tmux ls'
 alias tkill='tmux kill-session -t'
@@ -197,6 +205,11 @@ export PATH="/usr/local/bin:$PATH"
 if [[ $(hostname|grep -c "ld1") -eq 1 ]];then
     export JAVA_HOME=/export/apps/jdk/JDK-1_8_0_5/
     source /usr/bin/virtualenvwrapper.sh
+
+    eval `/usr/bin/gnome-keyring-daemon --start --components=pkcs11,secrets,ssh,gpg`
+    export SSH_AUTH_SOCK
+    export GPG_AGENT_INFO
+
 fi
 
 # OSX
