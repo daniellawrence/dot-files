@@ -8,6 +8,7 @@ BASEDIR=$PWD
 link_dot_files () {
     IGNORE_FILTER="${1}"
     INCLUDE_FILTER="${2}"
+
     #---------------------------------------------------
     # Link in all the dot files
     #---------------------------------------------------
@@ -17,23 +18,20 @@ link_dot_files () {
 	# echo $DOT_FILE
 	DOT_FILE=$(echo ${DOT_FILE} |sed 's/://g')
 
+	if [ -L ${REAL_DOT_FILE} ]; then
+	       rm ${REAL_DOT_FILE}
+	fi
 
-	if [ -e ${REAL_DOT_FILE} ];then
-	    FILE_TYPE=$(file ${REAL_DOT_FILE} | awk '{print $2" "$3}')
-	    if [ "${FILE_TYPE}" == "symbolic link" ];then
-		rm ${REAL_DOT_FILE}
-		# continue
-	    else
-		# echo "Moving ${REAL_DOT_FILE} out of the way"
+	if [ -f ${REAL_DOT_FILE} ];then
+		echo "Moving ${REAL_DOT_FILE} out of the way"
 		mkdir -p $(dirname ${REAL_DOT_FILE})
 		mv ${REAL_DOT_FILE} ${REAL_DOT_FILE}.backup
-	    fi
 	fi
 	
-	echo "Linking $REAL_DOT_FILE -> ${BASEDIR}/${DOT_FILE}"
+	echo "$REAL_DOT_FILE -> ${BASEDIR}/${DOT_FILE}"
+
 	# For some reason base really didn't want to make this work.
 	echo ln -s ${BASEDIR}/${DOT_FILE} ${REAL_DOT_FILE} |sh   
-	echo
     done
 }
 
