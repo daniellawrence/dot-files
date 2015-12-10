@@ -34,6 +34,7 @@
    nyan-mode
    virtualenvwrapper
    git-timemachine
+   go-mode
    ))
 
 (nyan-mode)
