@@ -15,6 +15,11 @@ setw -g alternate-screen on
 # Lower escape timing from 500ms to 50ms for quicker response to scroll-buffer access.
 set -s escape-time 50
 
+# move x clipboard into tmux paste buffer
+bind p run "tmux set-buffer \"$(xclip -o)\"; tmux paste-buffer"
+# move tmux copy buffer into x clipboard
+bind y run "tmux save-buffer - | xclip -i"
+
 set -g default-shell "/bin/zsh"
 set -g status-bg "colour235"
 set -g message-command-fg "colour231"
