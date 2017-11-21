@@ -194,3 +194,4 @@
    version-control t)       ; use versioned backups
 
 (setq create-lockfiles nil) 
+(set-keyboard-coding-system nil)
