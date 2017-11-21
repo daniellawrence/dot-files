@@ -28,6 +28,7 @@
    linum
    ack ag
    projectile
+   flycheck
    json-mode
    nyan-mode
    virtualenvwrapper
@@ -69,6 +70,8 @@
 ;; Don't let Emacs hurt your ears
 (setq visible-bell t)
 
+;; ~/.emacs
+(add-to-list 'auto-mode-alist '("dot-emacs" . lisp-mode))
 
 (require 'yaml-mode)
 (add-to-list 'auto-mode-alist '("\\.yml$" . yaml-mode))
@@ -76,7 +79,6 @@
 
 (require 'ace-jump-mode)
 (define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
-
 
 (require 'helm-config)
 (global-set-key (kbd "M-x") 'helm-M-x)
@@ -107,10 +109,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(custom-safe-themes
+ '(package-selected-packages
    (quote
-    ("196cc00960232cfc7e74f4e95a94a5977cb16fd28ba7282195338f68c84058ec" default)))
-)
+    (nginx-mode go-mode git-timemachine virtualenvwrapper nyan-mode json-mode projectile ag ack git-gutter-fringe magit git-gutter+ dash-functional gitlab dockerfile-mode markdown-mode web-mode monokai-theme ace-jump-mode yaml-mode helm jedi rainbow-mode dired+))))
 
 (global-set-key (kbd "C-c p s") 'helm-projectile-ack)
 (global-set-key (kbd "C-c p z") 'magit-status)
@@ -158,3 +159,9 @@
 ;; jump to line
 (global-set-key (kbd "C-;") 'goto-line)
 (put 'upcase-region 'disabled nil)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
