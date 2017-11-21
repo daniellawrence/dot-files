@@ -109,9 +109,10 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(js-indent-level 2)
  '(package-selected-packages
    (quote
-    (nginx-mode go-mode git-timemachine virtualenvwrapper nyan-mode json-mode projectile ag ack git-gutter-fringe magit git-gutter+ dash-functional gitlab dockerfile-mode markdown-mode web-mode monokai-theme ace-jump-mode yaml-mode helm jedi rainbow-mode dired+))))
+    (flycheck-pyflakes nginx-mode go-mode git-timemachine virtualenvwrapper nyan-mode json-mode projectile ag ack git-gutter-fringe magit git-gutter+ dash-functional gitlab dockerfile-mode markdown-mode web-mode monokai-theme ace-jump-mode yaml-mode helm jedi rainbow-mode dired+))))
 
 (global-set-key (kbd "C-c p s") 'helm-projectile-ack)
 (global-set-key (kbd "C-c p z") 'magit-status)
@@ -169,3 +170,27 @@
 
 ;;
 (setq ring-bell-function 'ignore)
+
+
+(global-set-key (kbd "C-c o") 
+                (lambda () (interactive) (find-file "~/organizer.org")))
+(set-register ?o (cons 'file "~/organizer.org"))
+
+(global-set-key (kbd "C-c c") 'org-capture)
+(setq org-default-notes-file "~/organizer.org")
+
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
+
+(setq
+   backup-by-copying t      ; don't clobber symlinks
+   backup-directory-alist
+    '(("." . "~/.saves"))    ; don't litter my fs tree
+   delete-old-versions t
+   kept-new-versions 6
+   kept-old-versions 2
+   version-control t)       ; use versioned backups
+
+(setq create-lockfiles nil) 
